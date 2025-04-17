@@ -50,46 +50,42 @@ The following button opens up an interactive tutorial showing how to deploy Bank
 2. Clone the repository.
 
    ```sh
-   git clone https://github.com/GoogleCloudPlatform/bank-of-anthos
+   git clone https://github.com/Maxiflexy/DreamDevs_Team_5
    cd bank-of-anthos/
    ```
 
 3. Set the Google Cloud project and region and ensure the Google Kubernetes Engine API is enabled.
 
    ```sh
-   export PROJECT_ID=<PROJECT_ID>
-   export REGION=us-central1
-   gcloud services enable container.googleapis.com \
-     --project=${PROJECT_ID}
-   ```
-
-   Substitute `<PROJECT_ID>` with the ID of your Google Cloud project.
-
-4. Create a GKE cluster and get the credentials for it.
-
-   ```sh
-   gcloud container clusters create-auto bank-of-anthos \
-     --project=${PROJECT_ID} --region=${REGION}
-   ```
-
-   Creating the cluster may take a few minutes.
-
-5. Deploy Bank of Anthos to the cluster.
-
-   ```sh
+   minikube stop
+   
+   minikube delete
+   
+   minikube start --driver=docker
+   
+   minikube status
+   
+   kubectl config current-context
+   
+   kubectl get nodes
+   
    kubectl apply -f ./extras/jwt/jwt-secret.yaml
+   
    kubectl apply -f ./kubernetes-manifests
+   
+   kubectl get pods
+   
+   minikube service frontend
+   
+   kubectl delete all --all
+   
+   minikube stop
    ```
 
-6. Wait for the pods to be ready.
+
+4. Wait for the pods to be ready.
 
    ```sh
-   kubectl get pods
-   ```
-
-   After a few minutes, you should see the Pods in a `Running` state:
-
-   ```
    NAME                                  READY   STATUS    RESTARTS   AGE
    accounts-db-6f589464bc-6r7b7          1/1     Running   0          99s
    balancereader-797bf6d7c5-8xvp6        1/1     Running   0          99s
@@ -101,23 +97,6 @@ The following button opens up an interactive tutorial showing how to deploy Bank
    transactionhistory-5569754896-z94cn   1/1     Running   0          97s
    userservice-78dc876bff-pdhtl          1/1     Running   0          96s
    ```
-
-7. Access the web frontend in a browser using the frontend's external IP.
-
-   ```sh
-   kubectl get service frontend | awk '{print $4}'
-   ```
-
-   Visit `http://EXTERNAL_IP` in a web browser to access your instance of Bank of Anthos.
-
-8. Once you are done with it, delete the GKE cluster.
-
-   ```sh
-   gcloud container clusters delete bank-of-anthos \
-     --project=${PROJECT_ID} --region=${REGION}
-   ```
-
-   Deleting the cluster may take a few minutes.
 
 ## Additional deployment options
 

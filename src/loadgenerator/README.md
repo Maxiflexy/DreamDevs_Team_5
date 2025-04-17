@@ -37,5 +37,5 @@ Implemented in Python with Locust.
 
 ### Kubernetes Resources
 
-- [deployments/loadgenerator](/kubernetes-manifests/loadgenerator.yaml)
-- [service/loadgenerator](/kubernetes-manifests/loadgenerator.yaml)
+- [deployments/loadgenerator](/extras/loadgenerator.yaml)
+- [service/loadgenerator](/extras/loadgenerator.yaml)

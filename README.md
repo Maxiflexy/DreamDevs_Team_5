@@ -110,9 +110,16 @@ The following button opens up an interactive tutorial showing how to deploy Bank
 
    Visit `http://EXTERNAL_IP` in a web browser to access your instance of Bank of Anthos.
 
-8. Once you are done with it, delete the GKE cluster.
+8. Once you are done with it, delete the pods, statefulsets and or GKE cluster.
 
    ```sh
+   
+   kubectl delete deployments --all
+   kubectl delete services --all
+   kubectl delete pods --all
+   
+   kubectl delete statefulsets,services,pods accounts-db ledger-db
+   
    gcloud container clusters delete bank-of-anthos \
      --project=${PROJECT_ID} --region=${REGION}
    ```

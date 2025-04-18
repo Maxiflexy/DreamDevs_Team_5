@@ -2,55 +2,55 @@ steps:
 
   # Frontend service
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/frontend:v1.0.1@${SHORT_SHA}', './src/frontend' ]
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/frontend:v1.0.1-${SHORT_SHA}', './src/frontend' ]
     id: 'Build Frontend Image'
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/frontend:v1.0.1@${SHORT_SHA}' ]
+    args: [ 'push', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/frontend:v1.0.1-${SHORT_SHA}' ]
     id: 'Push Frontend Image'
 
 
   # Contacts service
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/contacts:v1.0.1@${SHORT_SHA}', './src/accounts/contacts' ]
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/contacts:v1.0.1-${SHORT_SHA}', './src/accounts/contacts' ]
     id: 'Build Contacts Image'
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/contacts:v1.0.1@${SHORT_SHA}' ]
+    args: [ 'push', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/contacts:v1.0.1-${SHORT_SHA}' ]
     id: 'Push Contacts Image'
 
 
   # User service
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/userservice:v1.0.1@${SHORT_SHA}', './src/accounts/userservice' ]
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/userservice:v1.0.1-${SHORT_SHA}', './src/accounts/userservice' ]
     id: 'Build UserService Image'
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/userservice:v1.0.1@${SHORT_SHA}' ]
+    args: [ 'push', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/userservice:v1.0.1-${SHORT_SHA}' ]
     id: 'Push UserService Image'
 
 
   # Balance Reader service
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/balancereader:v1.0.1@${SHORT_SHA}', './src/ledger/balancereader' ]
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/balancereader:v1.0.1-${SHORT_SHA}', './src/ledger/balancereader' ]
     id: 'Build BalanceReader Image'
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/balancereader:v1.0.1@${SHORT_SHA}' ]
+    args: [ 'push', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/balancereader:v1.0.1-${SHORT_SHA}' ]
     id: 'Push BalanceReader Image'
 
 
   # Ledger Writer service
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/ledgerwriter:v1.0.1@${SHORT_SHA}', './src/ledger/ledgerwriter' ]
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/ledgerwriter:v1.0.1-${SHORT_SHA}', './src/ledger/ledgerwriter' ]
     id: 'Build LedgerWriter Image'
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/ledgerwriter:v1.0.1@${SHORT_SHA}' ]
+    args: [ 'push', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/ledgerwriter:v1.0.1-${SHORT_SHA}' ]
     id: 'Push LedgerWriter Image'
 
 
   # Transaction History service
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/transactionhistory:v1.0.1@${SHORT_SHA}', './src/ledger/transactionhistory' ]
+    args: [ 'build', '-t', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/transactionhistory:v1.0.1-${SHORT_SHA}', './src/ledger/transactionhistory' ]
     id: 'Build TransactionHistory Image'
   - name: 'gcr.io/cloud-builders/docker'
-    args: [ 'push', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/transactionhistory:v1.0.1@${SHORT_SHA}' ]
+    args: [ 'push', 'us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/transactionhistory:v1.0.1-${SHORT_SHA}' ]
     id: 'Push TransactionHistory Image'
 
 
@@ -71,12 +71,12 @@ steps:
       - |
         cat <<EOF > deploy/image-map.json
         {
-          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/frontend:v0.6.6@sha256:ebf8b320680cd948900a3036733b34ad804e98cf7efe57b7a4c5eac0837fe9e9": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/frontend:v1.0.1@${SHORT_SHA}",
-          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/contacts:v0.6.6@sha256:df90fc69dff90628ecdae4c785ed2447c28c2145002ef04779103843c1ded587": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/contacts:v1.0.1@${SHORT_SHA}",
-          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/userservice:v0.6.6@sha256:70e7332af06ecae6496ef87b0b0512dae60eefb8c74f5335df527aa150c86605": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/userservice:v1.0.1@${SHORT_SHA}",
-          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/balancereader:v0.6.6@sha256:cd9dee677105ac2a8310a624f774382d9b119887637a7e396f253f89aa70f2d5": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/balancereader:v1.0.1@${SHORT_SHA}",
-          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/ledgerwriter:v0.6.6@sha256:097fef6887147b64e5741075fc6b495e429b8ab9a22819b431972f68eee1e478": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/ledgerwriter:v1.0.1@${SHORT_SHA}",
-          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/transactionhistory:v0.6.6@sha256:62d8f7bfab10bb2130b9fe150ba3cae43b0d006e5d59fbd054d1378d22aa464a": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/transactionhistory:v1.0.1@${SHORT_SHA}"
+          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/frontend:v0.6.6@sha256:ebf8b320680cd948900a3036733b34ad804e98cf7efe57b7a4c5eac0837fe9e9": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/frontend:v1.0.1-${SHORT_SHA}",
+          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/contacts:v0.6.6@sha256:df90fc69dff90628ecdae4c785ed2447c28c2145002ef04779103843c1ded587": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/contacts:v1.0.1-${SHORT_SHA}",
+          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/userservice:v0.6.6@sha256:70e7332af06ecae6496ef87b0b0512dae60eefb8c74f5335df527aa150c86605": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/userservice:v1.0.1-${SHORT_SHA}",
+          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/balancereader:v0.6.6@sha256:cd9dee677105ac2a8310a624f774382d9b119887637a7e396f253f89aa70f2d5": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/balancereader:v1.0.1-${SHORT_SHA}",
+          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/ledgerwriter:v0.6.6@sha256:097fef6887147b64e5741075fc6b495e429b8ab9a22819b431972f68eee1e478": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/ledgerwriter:v1.0.1-${SHORT_SHA}",
+          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/transactionhistory:v0.6.6@sha256:62d8f7bfab10bb2130b9fe150ba3cae43b0d006e5d59fbd054d1378d22aa464a": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/transactionhistory:v1.0.1-${SHORT_SHA}"
         }
         EOF
     id: 'Generate Image Map'

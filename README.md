@@ -65,11 +65,14 @@ The following button opens up an interactive tutorial showing how to deploy Bank
 
    Substitute `<PROJECT_ID>` with the ID of your Google Cloud project.
 
-4. Create a GKE cluster and get the credentials for it.
+4. Create a GKE cluster and get the credentials for it using a given VPC network.
 
    ```sh
+   gcloud compute networks list --project=dreamdev-team5
+   
    gcloud container clusters create-auto bank-of-anthos \
-     --project=${PROJECT_ID} --region=${REGION}
+     --project=${PROJECT_ID} --region=${REGION} \ 
+     --network=EXISTING_NETWORK_NAME
    ```
 
    Creating the cluster may take a few minutes.
@@ -114,6 +117,7 @@ The following button opens up an interactive tutorial showing how to deploy Bank
 
    ```sh
    
+   kubectl delete all --all
    kubectl delete deployments --all
    kubectl delete services --all
    kubectl delete pods --all
@@ -125,6 +129,17 @@ The following button opens up an interactive tutorial showing how to deploy Bank
    ```
 
    Deleting the cluster may take a few minutes.
+
+
+9. To create artifact registry run :  
+   ```shell
+      gcloud artifacts repositories create monieshop-repo \
+        --repository-format=docker \
+        --location=us-central1 \
+        --description="Docker repository for GKE images"
+   ```
+   
+
 
 ## Additional deployment options
 

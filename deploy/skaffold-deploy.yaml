@@ -1,0 +1,10 @@
+# Simplified skaffold for deployment
+
+apiVersion: skaffold/v2beta28
+kind: Config
+metadata:
+  name: bank-of-anthos-deploy
+deploy:
+  kubectl:
+    manifests:
+      - kubernetes-manifests/*.yaml

@@ -1,0 +1,13 @@
+# Prod target configuration
+
+apiVersion: deploy.cloud.google.com/v1
+kind: Target
+metadata:
+  name: prod
+  annotations: {}
+  labels:
+    app: bank-of-anthos
+description: Production environment
+requireApproval: true
+gke:
+  cluster: projects/prj-poc-001/locations/us-central1-c/clusters/cluster-2

@@ -1,0 +1,13 @@
+# Cloud Deploy pipeline definition
+
+apiVersion: deploy.cloud.google.com/v1
+kind: DeliveryPipeline
+metadata:
+  name: gke-cicd-pipeline
+  labels:
+    app: bank-of-anthos
+description: Bank of Anthos delivery pipeline
+serialPipeline:
+  stages:
+    - targetId: dev
+    - targetId: prod

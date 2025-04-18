@@ -10,4 +10,4 @@ metadata:
 description: Production environment
 requireApproval: true
 gke:
-  cluster: projects/prj-poc-001/locations/us-central1-c/clusters/cluster-2
+  cluster: projects/dreamdev-team5/locations/us-central1/clusters/dreamdevs-team5-moniebank

@@ -9,4 +9,4 @@ metadata:
     app: bank-of-anthos
 description: Development environment
 gke:
-  cluster: projects/prj-poc-001/locations/us-central1-c/clusters/cluster-1
+  cluster: projects/dreamdev-team5/locations/us-central1/clusters/dreamdevs-team5-moniebank-test

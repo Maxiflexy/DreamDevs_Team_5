@@ -116,6 +116,20 @@ steps:
     id: 'Create Skaffold Deploy File'
 
 
+  # Add this step before your Cloud Deploy step
+  - name: 'google/cloud-sdk:latest'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        # Create the JWT secret in both clusters
+        gcloud container clusters get-credentials dreamdevs-team5-moniebank --region=us-central1
+        kubectl apply -f ./extras/jwt/jwt-secret.yaml
+
+        gcloud container clusters get-credentials dreamdevs-team5-moniebank-test --region=us-central1
+        kubectl apply -f ./extras/jwt/jwt-secret.yaml
+
+
 
   # Apply the Cloud Deploy configs
   - name: 'google/cloud-sdk:latest'

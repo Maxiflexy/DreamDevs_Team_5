@@ -7,4 +7,4 @@ metadata:
 deploy:
   kubectl:
     manifests:
-      - kubernetes-manifests/*.yaml
+      - ../kubernetes-manifests/*.yaml

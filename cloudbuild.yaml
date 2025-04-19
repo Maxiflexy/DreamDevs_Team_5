@@ -111,7 +111,7 @@ steps:
         deploy:
           kubectl:
             manifests:
-              - kubernetes-manifests/*.yaml
+              - ../kubernetes-manifests/*.yaml
         EOF
     id: 'Create Skaffold Deploy File'
 

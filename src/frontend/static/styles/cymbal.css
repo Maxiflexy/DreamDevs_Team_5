@@ -71,6 +71,11 @@ label {
   vertical-align: middle !important;
 }
 
+#investment-icon {
+  color: white !important;
+  vertical-align: middle !important;
+}
+
 /* TOP NAVIGATION  */
 .header {
   margin-bottom: 2rem;
@@ -239,13 +244,13 @@ label {
   color: #ff0000;
 }
 .text-debit {
-  color: #0357ee;
+  color: #008a20;
 }
 .transaction-amount {
   text-align: right !important;
 }
 .transaction-amount-credit {
-  color: #0357ee;
+  color: #008a20;
 }
 .transaction-amount-debit {
   color: #ff0000;
@@ -392,6 +397,7 @@ form button {
 .deposit-send-payment-div {
   margin-top: auto;
   margin-bottom: auto;
+  /* padding: 0; */
 }
 
 .account-number-div {

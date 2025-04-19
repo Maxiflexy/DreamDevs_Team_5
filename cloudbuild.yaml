@@ -63,23 +63,38 @@ steps:
         mkdir -p deploy
         
 
-  # Generate image substitutions for Cloud Deploy
+#  # Generate image substitutions for Cloud Deploy
+#  - name: 'gcr.io/cloud-builders/gcloud'
+#    entrypoint: 'bash'
+#    args:
+#      - '-c'
+#      - |
+#        cat <<EOF > deploy/image-map.json
+#        {
+#          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/frontend:v0.6.6@sha256:ebf8b320680cd948900a3036733b34ad804e98cf7efe57b7a4c5eac0837fe9e9": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/frontend:v1.0.1-${SHORT_SHA}",
+#          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/contacts:v0.6.6@sha256:df90fc69dff90628ecdae4c785ed2447c28c2145002ef04779103843c1ded587": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/contacts:v1.0.1-${SHORT_SHA}",
+#          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/userservice:v0.6.6@sha256:70e7332af06ecae6496ef87b0b0512dae60eefb8c74f5335df527aa150c86605": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/userservice:v1.0.1-${SHORT_SHA}",
+#          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/balancereader:v0.6.6@sha256:cd9dee677105ac2a8310a624f774382d9b119887637a7e396f253f89aa70f2d5": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/balancereader:v1.0.1-${SHORT_SHA}",
+#          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/ledgerwriter:v0.6.6@sha256:097fef6887147b64e5741075fc6b495e429b8ab9a22819b431972f68eee1e478": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/ledgerwriter:v1.0.1-${SHORT_SHA}",
+#          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/transactionhistory:v0.6.6@sha256:62d8f7bfab10bb2130b9fe150ba3cae43b0d006e5d59fbd054d1378d22aa464a": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/transactionhistory:v1.0.1-${SHORT_SHA}"
+#        }
+#        EOF
+#    id: 'Generate Image Map'
+
+
+  # After building and pushing all images, update the Kubernetes manifests
   - name: 'gcr.io/cloud-builders/gcloud'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        cat <<EOF > deploy/image-map.json
-        {
-          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/frontend:v0.6.6@sha256:ebf8b320680cd948900a3036733b34ad804e98cf7efe57b7a4c5eac0837fe9e9": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/frontend:v1.0.1-${SHORT_SHA}",
-          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/contacts:v0.6.6@sha256:df90fc69dff90628ecdae4c785ed2447c28c2145002ef04779103843c1ded587": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/contacts:v1.0.1-${SHORT_SHA}",
-          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/userservice:v0.6.6@sha256:70e7332af06ecae6496ef87b0b0512dae60eefb8c74f5335df527aa150c86605": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/userservice:v1.0.1-${SHORT_SHA}",
-          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/balancereader:v0.6.6@sha256:cd9dee677105ac2a8310a624f774382d9b119887637a7e396f253f89aa70f2d5": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/balancereader:v1.0.1-${SHORT_SHA}",
-          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/ledgerwriter:v0.6.6@sha256:097fef6887147b64e5741075fc6b495e429b8ab9a22819b431972f68eee1e478": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/ledgerwriter:v1.0.1-${SHORT_SHA}",
-          "us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/transactionhistory:v0.6.6@sha256:62d8f7bfab10bb2130b9fe150ba3cae43b0d006e5d59fbd054d1378d22aa464a": "us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/transactionhistory:v1.0.1-${SHORT_SHA}"
-        }
-        EOF
-    id: 'Generate Image Map'
+        # Find and replace image references in all Kubernetes manifest files
+        sed -i 's|us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/frontend:v0.6.6@sha256:ebf8b320680cd948900a3036733b34ad804e98cf7efe57b7a4c5eac0837fe9e9|us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/frontend:v1.0.1-${SHORT_SHA}|g' kubernetes-manifests/*.yaml
+        sed -i 's|us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/contacts:v0.6.6@sha256:df90fc69dff90628ecdae4c785ed2447c28c2145002ef04779103843c1ded587|us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/contacts:v1.0.1-${SHORT_SHA}|g' kubernetes-manifests/*.yaml
+        sed -i 's|us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/userservice:v0.6.6@sha256:70e7332af06ecae6496ef87b0b0512dae60eefb8c74f5335df527aa150c86605|us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/userservice:v1.0.1-${SHORT_SHA}|g' kubernetes-manifests/*.yaml
+        sed -i 's|us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/balancereader:v0.6.6@sha256:cd9dee677105ac2a8310a624f774382d9b119887637a7e396f253f89aa70f2d5|us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/balancereader:v1.0.1-${SHORT_SHA}|g' kubernetes-manifests/*.yaml
+        sed -i 's|us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/ledgerwriter:v0.6.6@sha256:097fef6887147b64e5741075fc6b495e429b8ab9a22819b431972f68eee1e478|us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/ledgerwriter:v1.0.1-${SHORT_SHA}|g' kubernetes-manifests/*.yaml
+        sed -i 's|us-central1-docker.pkg.dev/bank-of-anthos-ci/bank-of-anthos/transactionhistory:v0.6.6@sha256:62d8f7bfab10bb2130b9fe150ba3cae43b0d006e5d59fbd054d1378d22aa464a|us-central1-docker.pkg.dev/dreamdev-team5/monieshop-repo/transactionhistory:v1.0.1-${SHORT_SHA}|g' kubernetes-manifests/*.yaml
 
 
   # Create skaffold-deploy.yaml
@@ -115,8 +130,7 @@ steps:
         gcloud deploy releases create 'bank-of-anthos-${SHORT_SHA}' \
           --delivery-pipeline=gke-cicd-pipeline \
           --region=us-central1 \
-          --skaffold-file=deploy/skaffold-deploy.yaml \
-          --images=$(cat deploy/image-map.json)
+          --skaffold-file=deploy/skaffold-deploy.yaml 
 
 options:
   logging: CLOUD_LOGGING_ONLY

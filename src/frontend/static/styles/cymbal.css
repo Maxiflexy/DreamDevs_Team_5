@@ -389,6 +389,10 @@ form button {
   border: 1px solid #1b6af4 !important;
 }
 
+.investmentLink:hover {
+  text-decoration: none;
+}
+
 /* inside modal */
 .deposit-send-button {
   margin-left: 0.5rem !important;

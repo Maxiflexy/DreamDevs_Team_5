@@ -261,6 +261,22 @@ def create_app():
                                 msg='Payment failed',
                                 _external=True,
                                 _scheme=app.config['SCHEME']))
+    
+    @app.route('/investment-recommendation', methods=['GET'])
+    def investment_recommendation():
+        """
+        Renders investment recommendation page.
+        Redirects to /login if token is not valid.
+        """
+
+        token = request.cookies.get(app.config['TOKEN_NAME'])
+        if not verify_token(token):
+            app.logger.debug('User isn\'t authenticated. Redirecting to login page.')
+            return redirect(url_for('login_page',
+                                _external=True,
+                                _scheme=app.config['SCHEME']))
+    
+        return render_template('investment.html')
 
     @app.route('/deposit', methods=['POST'])
     def deposit():

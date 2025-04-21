@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const accountBalance = sessionStorage.getItem("balance");
 
-    const response = await fetch("http://localhost:8080/investment-recommendations", {
+    const response = await fetch("http://35.232.140.138/investment-recommendations", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

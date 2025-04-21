@@ -87,12 +87,8 @@ label {
   color: #343434;
 }
 #cymbal-logo {
-  max-width: 80%;
-  max-height: 80%;
-  vertical-align: middle;
-  /* margin: auto;
-     display: block;
-     object-fit: contain; */
+  width: 30px;
+  height: 30px;
 }
 .navbar-top {
   background-color: white;
@@ -114,7 +110,8 @@ label {
   font-weight: 700;
   font-size: 1.5rem !important;
   letter-spacing: -0.04em !important;
-  color: #000000 !important;
+  color: #0357ee !important;
+  margin-left: 5px;
 }
 .nav-link i {
   font-size: 20px;
@@ -348,7 +345,6 @@ form button {
 .btn-primary:hover,
 .btn:focus,
 .btn-primary:focus {
-  background-color: #1b6af4 !important;
   transform: scale(0.95);
   /* 397bf1 */
   /* 0357EE */

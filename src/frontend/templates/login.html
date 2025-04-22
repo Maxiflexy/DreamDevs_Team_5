@@ -70,17 +70,16 @@ limitations under the License.
         .logo-container img {
             height: 150px;
             width: auto;
-            margin-top:-45px;
-            .desktop-logo {
-             display: block;
-             }
-
-            .mobile-logo {
-                display: none;
-            }
+            margin-top: -45px;
         }
 
-        
+        .desktop-logo {
+            display: block;
+        }
+
+        .mobile-logo {
+            display: none;
+        }
 
         .login-hero {
             display: none;
@@ -110,6 +109,46 @@ limitations under the License.
             }
         }
 
+        @media (max-width: 991px) {
+            .login-container {
+                flex-direction: column;
+            }
+            .login-hero {
+                display: none;
+            }
+            .login-form-container {
+                width: 100%;
+                padding: 1rem;
+                min-height: 100vh;
+            }
+            .logo-container {
+                position: relative;
+                top: 0;
+                left: 0;
+                text-align: center;
+                padding: 1rem;
+                background-color: #fff;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .logo-container img {
+                height: 40px;
+                margin-top: 0;
+            }
+            .desktop-logo {
+                display: none;
+            }
+            .mobile-logo {
+                display: block;
+            }
+            .login-form-wrapper {
+                max-width: 100%;
+                padding: 1rem;
+            }
+        }
+
         .login-hero-content {
             position: relative;
             z-index: 2;
@@ -130,8 +169,9 @@ limitations under the License.
 
         .login-form-container {
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: center;
+            box-shadow: 0px 0px 8px rgba(0,0,0,.6);
             padding: 1.25rem;
             min-height: 100vh;
             background-color: #fff;
@@ -303,25 +343,7 @@ limitations under the License.
 
         @media (max-width: 768px) {
             .login-form-container {
-                padding: 1rem;
-                min-height: calc(100vh - 60px); /* Account for logo height */
-            }
-            .login-form-wrapper {
                 padding: 0.5rem;
-                max-width: 100%;
-            }
-            .logo-container {
-                top: 1rem;
-                left: 1rem;
-            }
-            .logo-container img {
-                height: 30px;
-            }
-            .desktop-logo {
-                display: none;
-            }
-            .mobile-logo {
-                display: block;
             }
             .form-group {
                 margin-bottom: 1rem;
@@ -331,7 +353,7 @@ limitations under the License.
                 font-size: 0.95rem;
             }
             .form-control {
-                padding: 0.625rem 0.875rem;
+                padding: 0.875rem 1rem 0.875rem 2.5rem;
                 font-size: 0.95rem;
             }
             .login-form-wrapper h2 {
@@ -348,6 +370,9 @@ limitations under the License.
             }
             .form-footer {
                 font-size: 0.9rem;
+            }
+            .logo-container img {
+                height: 35px;
             }
         }
 

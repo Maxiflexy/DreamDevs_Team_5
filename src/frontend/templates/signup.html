@@ -16,556 +16,602 @@ limitations under the License.
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <!-- Material Icons -->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!-- Font Awesome as fallback -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-      :root {
-        --primary-color: #2D7FF9;
-        --text-color: #333;
-        --background-light: #f8f9fa;
-        --font-primary: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
-      }
 
-      * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-        font-family: var(--font-primary);
-      }
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+  <title>{{ bank_name }}</title>
+  <link rel="icon" href="static/img/moniebank_logo.png" />
+  <link rel="stylesheet"
+    href="https://unpkg.com/bootstrap-material-design@4.1.1/dist/css/bootstrap-material-design.min.css"
+    integrity="sha384-wXznGJNEXNG1NFsbm0ugrLFMQPWswR3lds2VeinahP8N0zJw9VWSopbjv2x7WCvX" crossorigin="anonymous">
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <!-- <link rel="stylesheet" href="static/styles/cymbal.css"> -->
 
-      body {
-        font-family: var(--font-primary);
-        margin: 0 !important;
-        padding: 0 !important;
-        height: 100vh;
-        overflow: hidden;
-        font-weight: 400;
-        line-height: 1.5;
-      }
+  <!-- Material Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <!-- Font Awesome as fallback -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
+  <style>
+    :root {
+      --primary-color: #2D7FF9;
+      --text-color: #333;
+      --background-light: #f8f9fa;
+      --font-primary: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: var(--font-primary);
+    }
+
+    body {
+      font-family: var(--font-primary);
+      margin: 0 !important;
+      padding: 0 !important;
+      height: 100vh;
+      overflow: hidden;
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    .signup-container {
+      height: 100vh;
+      display: flex;
+      flex-direction: row;
+    }
+
+    .signup-form-section {
+      width: 50%;
+      padding: 1.25rem 2.5rem;
+      background: #fff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+      overflow-y: auto;
+    }
+
+    .brand-section {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+    }
+
+    .brand-logo {
+      width: 130px;
+      height: auto;
+    }
+
+    .form-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-header h2 {
+      font-size: 1.5rem;
+      font-weight: 600;
+      line-height: 1.3;
+      color: var(--text-color);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-header p {
+      color: #666;
+      line-height: 1.5;
+      font-size: 0.875rem;
+      font-weight: 400;
+    }
+
+    #signup-form {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 0.75rem;
+      width: 100%;
+    }
+
+    .form-group {
+      margin-bottom: 0;
+    }
+
+    .form-group.full-width {
+      grid-column: span 2;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: #666;
+      font-size: 0.813rem;
+      font-weight: 500;
+    }
+
+    .input-group {
+      position: relative;
+      display: flex;
+      align-items: center;
+    }
+
+    .input-group-prepend {
+      position: absolute;
+      left: 0.75rem;
+      color: #666;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      pointer-events: none;
+    }
+
+    .input-group-prepend .material-icons {
+      font-size: 1.125rem;
+      line-height: 1;
+    }
+
+    .form-control {
+      width: 100%;
+      border: 1px solid #ddd;
+      border-radius: 8px;
+      font-size: 0.875rem;
+      padding: 0.625rem 0.75rem 0.625rem 2.25rem;
+      height: 2.5rem;
+      transition: all 0.2s;
+      font-family: var(--font-primary);
+      font-weight: 400;
+      line-height: 1.5;
+    }
+
+    /* Specific styling for select elements */
+    select.form-control {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 0.75rem center;
+      padding-right: 2.25rem;
+    }
+
+    /* Ensure date input has consistent height and padding */
+    input[type="date"].form-control {
+      padding-right: 0.75rem;
+    }
+
+    /* Remove default date picker icon in webkit browsers */
+    input[type="date"]::-webkit-calendar-picker-indicator {
+      background: transparent;
+      padding: 0;
+      position: absolute;
+      right: 0.75rem;
+      cursor: pointer;
+    }
+
+    /* Adjust vertical alignment for all inputs */
+    .form-control,
+    .input-group-prepend .material-icons,
+    select.form-control option {
+      line-height: 1.5;
+      vertical-align: middle;
+    }
+
+    .form-control:focus {
+      border-color: var(--primary-color);
+      outline: none;
+      box-shadow: 0 0 0 2px rgba(45, 127, 249, 0.1);
+    }
+
+    .terms {
+      margin: 0.75rem 0;
+      grid-column: span 2;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .terms label {
+      font-size: 0.813rem;
+      color: #666;
+      font-weight: 400;
+      margin: 0;
+    }
+
+    .btn-primary {
+      grid-column: span 2;
+      height: 2.75rem;
+      background-color: var(--primary-color);
+      color: white;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.938rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.2s;
+      letter-spacing: 0.01em;
+    }
+
+    .btn-primary:hover {
+      background-color: #2468d9;
+    }
+
+    .signup-promo-section {
+      width: 50%;
+      background: url('../static/img/moniebank.jpg') center/cover no-repeat;
+    }
+
+    /* Mobile Styles */
+    @media screen and (max-width: 768px) {
       .signup-container {
-        height: 100vh;
-        display: flex;
-        flex-direction: row;
+        flex-direction: column;
       }
 
       .signup-form-section {
+        width: 100%;
+        padding: 1rem;
+      }
+
+      .signup-promo-section {
+        display: none;
+      }
+    }
+
+    /* Tablet Styles */
+    @media screen and (min-width: 769px) and (max-width: 1024px) {
+      .signup-form-section {
         width: 50%;
-        padding: 1.25rem 2.5rem;
-        background: #fff;
-        display: flex;
-        flex-direction: column;
-        height: 100vh;
-        overflow-y: auto;
-      }
-
-      .brand-section {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1.5rem;
-      }
-
-      .brand-logo {
-        width: 130px;
-        height: auto;
-      }
-
-      .form-header {
-        margin-bottom: 1.5rem;
-      }
-
-      .form-header h2 {
-        font-size: 1.5rem;
-        font-weight: 600;
-        line-height: 1.3;
-        color: var(--text-color);
-        margin-bottom: 0.5rem;
-      }
-
-      .form-header p {
-        color: #666;
-        line-height: 1.5;
-        font-size: 0.875rem;
-        font-weight: 400;
-      }
-
-      #signup-form {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 0.75rem;
-        width: 100%;
-      }
-
-      .form-group {
-        margin-bottom: 0;
-      }
-
-      .form-group.full-width {
-        grid-column: span 2;
-      }
-
-      .form-group label {
-        display: block;
-        margin-bottom: 0.25rem;
-        color: #666;
-        font-size: 0.813rem;
-        font-weight: 500;
-      }
-
-      .input-group {
-        position: relative;
-        display: flex;
-        align-items: center;
-      }
-
-      .input-group-prepend {
-        position: absolute;
-        left: 0.75rem;
-        color: #666;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        pointer-events: none;
-      }
-
-      .input-group-prepend .material-icons {
-        font-size: 1.125rem;
-        line-height: 1;
-      }
-
-      .form-control {
-        width: 100%;
-        border: 1px solid #ddd;
-        border-radius: 8px;
-        font-size: 0.875rem;
-        padding: 0.625rem 0.75rem 0.625rem 2.25rem;
-        height: 2.5rem;
-        transition: all 0.2s;
-        font-family: var(--font-primary);
-        font-weight: 400;
-        line-height: 1.5;
-      }
-
-      /* Specific styling for select elements */
-      select.form-control {
-        appearance: none;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right 0.75rem center;
-        padding-right: 2.25rem;
-      }
-
-      /* Ensure date input has consistent height and padding */
-      input[type="date"].form-control {
-        padding-right: 0.75rem;
-      }
-
-      /* Remove default date picker icon in webkit browsers */
-      input[type="date"]::-webkit-calendar-picker-indicator {
-        background: transparent;
-        padding: 0;
-        position: absolute;
-        right: 0.75rem;
-        cursor: pointer;
-      }
-
-      /* Adjust vertical alignment for all inputs */
-      .form-control, 
-      .input-group-prepend .material-icons,
-      select.form-control option {
-        line-height: 1.5;
-        vertical-align: middle;
-      }
-
-      .form-control:focus {
-        border-color: var(--primary-color);
-        outline: none;
-        box-shadow: 0 0 0 2px rgba(45, 127, 249, 0.1);
-      }
-
-      .terms {
-        margin: 0.75rem 0;
-        grid-column: span 2;
-        display: flex;
-        align-items: center;
-        gap: 0.5rem;
-      }
-
-      .terms label {
-        font-size: 0.813rem;
-        color: #666;
-        font-weight: 400;
-        margin: 0;
-      }
-
-      .btn-primary {
-        grid-column: span 2;
-        height: 2.75rem;
-        background-color: var(--primary-color);
-        color: white;
-        border: none;
-        border-radius: 8px;
-        font-size: 0.938rem;
-        font-weight: 500;
-        cursor: pointer;
-        transition: all 0.2s;
-        letter-spacing: 0.01em;
-      }
-
-      .btn-primary:hover {
-        background-color: #2468d9;
+        padding: 1.25rem;
       }
 
       .signup-promo-section {
         width: 50%;
-        background: url('../static/img/moniebank.jpg') center/cover no-repeat;
+      }
+    }
+
+    /* Ensure form fits in viewport on smaller heights */
+    @media screen and (max-height: 700px) {
+      .signup-form-section {
+        padding: 1rem;
       }
 
-      /* Mobile Styles */
-      @media screen and (max-width: 768px) {
-        .signup-container {
-          flex-direction: column;
-        }
-
-        .signup-form-section {
-          width: 100%;
-          padding: 1rem;
-        }
-
-        .signup-promo-section {
-          display: none;
-        }
+      .form-group {
+        margin-bottom: 0.5rem;
       }
 
-      /* Tablet Styles */
-      @media screen and (min-width: 769px) and (max-width: 1024px) {
-        .signup-form-section {
-          width: 50%;
-          padding: 1.25rem;
-        }
-
-        .signup-promo-section {
-          width: 50%;
-        }
+      .form-control {
+        height: 2.25rem;
       }
+    }
 
-      /* Ensure form fits in viewport on smaller heights */
-      @media screen and (max-height: 700px) {
-        .signup-form-section {
-          padding: 1rem;
-        }
+    /* Style for invalid input */
+    .form-control:invalid:not(:placeholder-shown) {
+      border-color: #dc3545;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%23dc3545'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right calc(0.375em + 0.1875rem) center;
+      background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
+    }
 
-        .form-group {
-          margin-bottom: 0.5rem;
-        }
+    /* Hide error icon for select elements */
+    select.form-control:invalid:not(:placeholder-shown) {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+    }
 
-        .form-control {
-          height: 2.25rem;
-        }
-      }
+    /* Style for date input */
+    input[type="date"].form-control {
+      position: relative;
+      cursor: pointer;
+    }
 
-      /* Style for invalid input */
-      .form-control:invalid:not(:placeholder-shown) {
-        border-color: #dc3545;
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='%23dc3545'%3E%3Cpath d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-2h2v2zm0-4h-2V7h2v6z'/%3E%3C/svg%3E");
-        background-repeat: no-repeat;
-        background-position: right calc(0.375em + 0.1875rem) center;
-        background-size: calc(0.75em + 0.375rem) calc(0.75em + 0.375rem);
-      }
+    input[type="date"].form-control::-webkit-calendar-picker-indicator {
+      position: absolute;
+      right: 0.75rem;
+      height: 100%;
+      width: 2rem;
+      background: transparent;
+      color: transparent;
+      cursor: pointer;
+    }
 
-      /* Hide error icon for select elements */
-      select.form-control:invalid:not(:placeholder-shown) {
-        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%23666' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
-      }
+    .invalid-feedback {
+      display: none;
+      width: 100%;
+      margin-top: 0.25rem;
+      font-size: 0.75rem;
+      color: #dc3545;
+    }
 
-      /* Style for date input */
-      input[type="date"].form-control {
-        position: relative;
-        cursor: pointer;
-      }
+    .form-control:invalid:not(:placeholder-shown)+.invalid-feedback {
+      display: block;
+    }
+  </style>
+</head>
 
-      input[type="date"].form-control::-webkit-calendar-picker-indicator {
-        position: absolute;
-        right: 0.75rem;
-        height: 100%;
-        width: 2rem;
-        background: transparent;
-        color: transparent;
-        cursor: pointer;
-      }
-
-      .invalid-feedback {
-        display: none;
-        width: 100%;
-        margin-top: 0.25rem;
-        font-size: 0.75rem;
-        color: #dc3545;
-      }
-
-      .form-control:invalid:not(:placeholder-shown) + .invalid-feedback {
-        display: block;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="signup-container">
-      <div class="signup-form-section">
-        <div class="form-header">
-          <div class="brand-section">
-            <img src="../static/img/moniebank-logo-blue.jpg" alt="Moniebank Logo" class="brand-logo">
-          </div>
-          <h2>👋 Welcome, Your journey to seamless, secure, and smart payments starts here.</h2>
-          <p>Create your free account and start sending, receiving, and managing money seamlessly. </br><strong>No stress. Just smart payments.</strong></p>
+<body>
+  <div class="signup-container">
+    <div class="signup-form-section">
+      <div class="form-header">
+        <div class="brand-section">
+          <img src="../static/img/moniebank-logo-blue.jpg" alt="Moniebank Logo" class="brand-logo">
         </div>
-
-                  <form id="signup-form" class="needs-validation" novalidate="" method="POST" action="/signup">
-          <!-- Account Information -->
-          <div class="form-group full-width">
-            <label for="signup-username">Username</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="material-icons">account_circle</span>
-                    </div>
-              <input class="form-control" type="text" id="signup-username" name="username" required>
-                      </div>
-                    </div>
-
-          <div class="form-group">
-            <label for="signup-password">Password</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="material-icons">lock</span>
-                        </div>
-              <input class="form-control" type="password" id="signup-password" name="password" required>
-                      </div>
-                    </div>
-
-          <div class="form-group">
-            <label for="signup-password-repeat">Confirm Password</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="material-icons">lock</span>
-                        </div>
-              <input class="form-control" type="password" id="signup-password-repeat" name="password-repeat" required>
-                      </div>
-                    </div>
-
-          <div class="form-group">
-            <label for="signup-firstname">First Name</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="material-icons">person</span>
-              </div>
-              <input class="form-control" type="text" id="signup-firstname" name="firstname" required>
-                        </div>
-                      </div>
-
-          <div class="form-group">
-            <label for="signup-lastname">Last Name</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="material-icons">person</span>
-                        </div>
-              <input class="form-control" type="text" id="signup-lastname" name="lastname" required>
-                      </div>
-                    </div>
-
-          <div class="form-group full-width">
-            <label for="address">Address</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="material-icons">home</span>
-              </div>
-              <input class="form-control" type="text" id="address" name="address" required>
-                      </div>
-                    </div>
-
-          <div class="form-group">
-            <label for="country">Country</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="material-icons">public</span>
-                        </div>
-              <select class="form-control" id="country" name="country" required>
-                <option selected>Nigeria</option>
-                        </select>
-                      </div>
-                    </div>
-
-          <div class="form-group">
-            <label for="state">State</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="material-icons">location_on</span>
-                        </div>
-              <select class="form-control" id="state" name="state" required>
-                <option value="">Choose...</option>
-                <option value="AB">Abia</option>
-                <option value="AD">Adamawa</option>
-                <option value="AK">Akwa Ibom</option>
-                <option value="AN">Anambra</option>
-                <option value="BA">Bauchi</option>
-                <option value="BY">Bayelsa</option>
-                <option value="BE">Benue</option>
-                <option value="BO">Borno</option>
-                <option value="CR">Cross River</option>
-                <option value="DE">Delta</option>
-                <option value="EB">Ebonyi</option>
-                <option value="ED">Edo</option>
-                <option value="EK">Ekiti</option>
-                <option value="EN">Enugu</option>
-                <option value="GO">Gombe</option>
-                <option value="IM">Imo</option>
-                <option value="JI">Jigawa</option>
-                <option value="KD">Kaduna</option>
-                <option value="KN">Kano</option>
-                <option value="KT">Katsina</option>
-                <option value="KE">Kebbi</option>
-                <option value="KO">Kogi</option>
-                <option value="KW">Kwara</option>
-                <option value="LA">Lagos</option>
-                <option value="NA">Nasarawa</option>
-                <option value="NI">Niger</option>
-                <option value="OG">Ogun</option>
-                <option value="ON">Ondo</option>
-                <option value="OS">Osun</option>
-                <option value="OY">Oyo</option>
-                <option value="PL">Plateau</option>
-                <option value="RI">Rivers</option>
-                <option value="SO">Sokoto</option>
-                <option value="TA">Taraba</option>
-                <option value="YO">Yobe</option>
-                <option value="ZA">Zamfara</option>
-                <option value="FC">Federal Capital Territory</option>
-              </select>
-                      </div>
-                    </div>
-
-          <div class="form-group">
-            <label for="nin">NIN</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="material-icons">badge</span>
-              </div>
-              <input 
-                class="form-control" 
-                type="text" 
-                id="nin" 
-                name="nin" 
-                pattern="[0-9]{10}" 
-                maxlength="10"
-                title="Please enter a valid 10-digit NIN"
-                placeholder="Enter your 10-digit NIN"
-                oninput="this.value = this.value.replace(/[^0-9]/g, '').slice(0, 10)"
-                required
-              >
-            </div>
-            <div class="invalid-feedback">
-              Please enter a valid 10-digit NIN number
-            </div>
-          </div>
-
-          <div class="form-group">
-            <label for="signup-birthday">Birthday</label>
-            <div class="input-group">
-              <div class="input-group-prepend">
-                <span class="material-icons">cake</span>
-              </div>
-              <input 
-                class="form-control" 
-                type="date" 
-                id="signup-birthday" 
-                name="birthday" 
-                min="1900-01-01"
-                max="{{ new Date().toISOString().split('T')[0] }}"
-                required
-              >
-            </div>
-            <div class="invalid-feedback">
-              Please select your date of birth
-            </div>
-          </div>
-
-          <div class="terms">
-            <input type="checkbox" id="terms" required>
-            <label for="terms">I agree to the Terms and Conditions</label>
-          </div>
-
-          <button class="btn-primary" type="submit">Create Account</button>
-        </form>
-        </div>
-
-      <div class="signup-promo-section">
+        <h2>👋 Welcome, Your journey to seamless, secure, and smart payments starts here.</h2>
+        <p>Create your free account and start sending, receiving, and managing money seamlessly. </br><strong>No stress.
+            Just smart payments.</strong></p>
       </div>
+
+      <form id="signup-form" class="needs-validation" novalidate="" method="POST" action="/signup">
+        <!-- Account Information -->
+        <div class="form-group full-width">
+          <label for="signup-username">Username</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="material-icons">account_circle</span>
+            </div>
+            <input class="form-control" type="text" id="signup-username" name="username" autocomplete="off"
+              pattern="([a-zA-Z0-9_]){2,15}" required>
+          </div>
+          <div class="invalid-feedback">
+            Please enter a valid username. Username must be 2 to 15 characters in length and contain only alphanumeric
+            or underscore characters.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signup-password">Password</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="material-icons">lock</span>
+            </div>
+            <input class="form-control" type="password" id="signup-password" value="" name="password" autocomplete="off"
+              required>
+          </div>
+          <div class="invalid-feedback">
+            Please enter a password.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signup-password-repeat">Confirm Password</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="material-icons">lock</span>
+            </div>
+            <input class="form-control" type="password" id="signup-password-repeat" name="password-repeat"
+              autocomplete="off" required>
+          </div>
+          <div class="invalid-feedback">
+            Please confirm your password.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signup-firstname">First Name</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="material-icons">person</span>
+            </div>
+            <input type="text" class="form-control" id="signup-firstname" name="firstname" required>
+          </div>
+          <div class="invalid-feedback">
+            Valid first name is required.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signup-lastname">Last Name</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="material-icons">person</span>
+            </div>
+            <input type="text" class="form-control" id="signup-lastname" name="lastname" required>
+          </div>
+          <div class="invalid-feedback">
+            Valid first name is required.
+          </div>
+        </div>
+
+        <div class="form-group full-width">
+          <label for="address">Address</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="material-icons">home</span>
+            </div>
+            <input type="text" class="form-control" id="address" name="address" value="" required>
+          </div>
+          <div class="invalid-feedback">
+            Please enter your address.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="country">Country</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="material-icons">public</span>
+            </div>
+            <select class="form-control" id="country" name="country" readonly>
+              <option selected>Nigeria</option>
+            </select>
+          </div>
+          <div class="invalid-feedback">
+            Please select a valid country.
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="state">State</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="material-icons">location_on</span>
+            </div>
+            <select class="form-control" id="state" name="state" required>
+              <option value="">Choose...</option>
+              <option value="AB">Abia</option>
+              <option value="AD">Adamawa</option>
+              <option value="AK">Akwa Ibom</option>
+              <option value="AN">Anambra</option>
+              <option value="BA">Bauchi</option>
+              <option value="BY">Bayelsa</option>
+              <option value="BE">Benue</option>
+              <option value="BO">Borno</option>
+              <option value="CR">Cross River</option>
+              <option value="DE">Delta</option>
+              <option value="EB">Ebonyi</option>
+              <option value="ED">Edo</option>
+              <option value="EK">Ekiti</option>
+              <option value="EN">Enugu</option>
+              <option value="GO">Gombe</option>
+              <option value="IM">Imo</option>
+              <option value="JI">Jigawa</option>
+              <option value="KD">Kaduna</option>
+              <option value="KN">Kano</option>
+              <option value="KT">Katsina</option>
+              <option value="KE">Kebbi</option>
+              <option value="KO">Kogi</option>
+              <option value="KW">Kwara</option>
+              <option value="LA">Lagos</option>
+              <option value="NA">Nasarawa</option>
+              <option value="NI">Niger</option>
+              <option value="OG">Ogun</option>
+              <option value="ON">Ondo</option>
+              <option value="OS">Osun</option>
+              <option value="OY">Oyo</option>
+              <option value="PL">Plateau</option>
+              <option value="RI">Rivers</option>
+              <option value="SO">Sokoto</option>
+              <option value="TA">Taraba</option>
+              <option value="YO">Yobe</option>
+              <option value="ZA">Zamfara</option>
+              <option value="FC">Federal Capital Territory</option>
+            </select>
+          </div>
+          <div class="invalid-feedback">
+            Please provide a valid state.
+          </div>
+        </div>
+
+        <div class="form-group d-none">
+          <label class="text-uppercase text-muted secondary-text" for="zip">Zip</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="material-icons">badge</span>
+            </div>
+            <input type="hidden" class="form-control" id="zip" name="zip" value="00000">
+          </div>
+          <div class="invalid-feedback">
+            Please enter your zip address
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="ssn">NIN</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="material-icons">badge</span>
+            </div>
+            <input type="text" class="form-control" id="ssn" name="ssn" value="111-22-3333">
+          </div>
+          <div class="invalid-feedback">
+            Please enter a valid 10-digit NIN number
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="signup-birthday">Birthday</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="material-icons">cake</span>
+            </div>
+            <input type="date" class="form-control" id="signup-birthday" name="birthday" min="1900-01-01" required>
+          </div>
+          <div class="invalid-feedback">
+            Please select your date of birth
+          </div>
+        </div>
+
+        <div class="form-group d-none">
+          <label for="timezone">Timezone</label>
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="material-icons">location_on</span>
+            </div>
+            <select class="form-control" id="timezone" name="timezone" required>
+              <option timeZoneId="35" gmtAdjustment="GMT+01:00" useDaylightTime="1" value="1" selected>
+                (GMT+01:00) West Central Africa
+              </option>
+            </select>
+          </div>
+          <div class="invalid-feedback">
+            Please select a valid timezone.
+          </div>
+        </div>
+
+        <button class="btn-primary" type="submit">Create Account</button>
+      </form>
     </div>
 
-{% include 'shared/scripts.html' %}
-    <script src="static/scripts/signup.js"></script>
-    <script>
-      // Ensure NIN only accepts numbers
-      document.getElementById('nin').addEventListener('keypress', function(e) {
-        if (e.key < '0' || e.key > '9') {
-          e.preventDefault();
-        }
-      });
+    <div class="signup-promo-section">
+    </div>
+  </div>
 
-      // Set maximum date as today
-      const birthdayInput = document.getElementById('signup-birthday');
-      const today = new Date();
-      const maxDate = today.toISOString().split('T')[0];
-      birthdayInput.max = maxDate;
+  {% include 'shared/scripts.html' %}
+  <script src="static/scripts/signup.js"></script>
+  <script>
+    // Ensure NIN only accepts numbers
+    document.getElementById('nin').addEventListener('keypress', function (e) {
+      if (e.key < '0' || e.key > '9') {
+        e.preventDefault();
+      }
+    });
 
-      // Initialize date picker with a better UI on click
-      birthdayInput.addEventListener('click', function(e) {
-        // For mobile devices, the native date picker works best
-        if (!/Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
-          // If you want to add a custom date picker for desktop, you can initialize it here
-          this.showPicker();
-        }
-      });
+    // Set maximum date as today
+    const birthdayInput = document.getElementById('signup-birthday');
+    const today = new Date();
+    const maxDate = today.toISOString().split('T')[0];
+    birthdayInput.max = maxDate;
 
-      // Form validation
-      document.getElementById('signup-form').addEventListener('submit', function(e) {
-        const password = document.getElementById('signup-password').value;
-        const confirmPassword = document.getElementById('signup-password-repeat').value;
-        
-        if (password !== confirmPassword) {
-          e.preventDefault();
-          e.stopPropagation();
-          alert('Passwords do not match. Please try again.');
-          return;
-        }
+    // Initialize date picker with a better UI on click
+    birthdayInput.addEventListener('click', function (e) {
+      // For mobile devices, the native date picker works best
+      if (!/Android|webOS|iPhone|iPad|iPod/i.test(navigator.userAgent)) {
+        // If you want to add a custom date picker for desktop, you can initialize it here
+        this.showPicker();
+      }
+    });
 
-        if (!this.checkValidity()) {
-          e.preventDefault();
-          e.stopPropagation();
-        }
-        this.classList.add('was-validated');
-      });
+    // Form validation
+    document.getElementById('signup-form').addEventListener('submit', function (e) {
+      const password = document.getElementById('signup-password').value;
+      const confirmPassword = document.getElementById('signup-password-repeat').value;
 
-      // Add real-time password matching validation
-      const passwordInput = document.getElementById('signup-password');
-      const confirmPasswordInput = document.getElementById('signup-password-repeat');
-
-      function validatePasswordMatch() {
-        if (passwordInput.value !== confirmPasswordInput.value) {
-          confirmPasswordInput.setCustomValidity('Passwords do not match');
-        } else {
-          confirmPasswordInput.setCustomValidity('');
-        }
+      if (password !== confirmPassword) {
+        e.preventDefault();
+        e.stopPropagation();
+        alert('Passwords do not match. Please try again.');
+        return;
       }
 
-      passwordInput.addEventListener('input', validatePasswordMatch);
-      confirmPasswordInput.addEventListener('input', validatePasswordMatch);
-    </script>
-  </body>
+      if (!this.checkValidity()) {
+        e.preventDefault();
+        e.stopPropagation();
+      }
+      this.classList.add('was-validated');
+    });
+
+    // Add real-time password matching validation
+    const passwordInput = document.getElementById('signup-password');
+    const confirmPasswordInput = document.getElementById('signup-password-repeat');
+
+    function validatePasswordMatch() {
+      if (passwordInput.value !== confirmPasswordInput.value) {
+        confirmPasswordInput.setCustomValidity('Passwords do not match');
+      } else {
+        confirmPasswordInput.setCustomValidity('');
+      }
+    }
+
+    passwordInput.addEventListener('input', validatePasswordMatch);
+    confirmPasswordInput.addEventListener('input', validatePasswordMatch);
+  </script>
+</body>
+
 </html>

@@ -154,7 +154,7 @@ limitations under the License.
     .form-control {
       width: 100%;
       border: 1px solid #ddd;
-      border-radius: 8px;
+      border-radius: 8px !important;
       font-size: 0.875rem;
       padding: 0.625rem 0.75rem 0.625rem 2.25rem;
       height: 2.5rem;
@@ -217,12 +217,13 @@ limitations under the License.
     }
 
     .btn-primary {
+      margin-top: 1rem;
       grid-column: span 2;
       height: 2.75rem;
       background-color: var(--primary-color);
       color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 8px !important;
       font-size: 0.938rem;
       font-weight: 500;
       cursor: pointer;
@@ -508,10 +509,10 @@ limitations under the License.
             <div class="input-group-prepend">
               <span class="material-icons">badge</span>
             </div>
-            <input type="text" class="form-control" id="ssn" name="ssn" value="111-22-3333">
+            <input type="text" class="form-control" id="ssn" name="ssn" maxlength="11" pattern="[0-9]{11}" required>
           </div>
           <div class="invalid-feedback">
-            Please enter a valid 10-digit NIN number
+            Please enter a valid 11-digit NIN number
           </div>
         </div>
 
@@ -556,10 +557,14 @@ limitations under the License.
   {% include 'shared/scripts.html' %}
   <script src="static/scripts/signup.js"></script>
   <script>
-    // Ensure NIN only accepts numbers
-    document.getElementById('nin').addEventListener('keypress', function (e) {
-      if (e.key < '0' || e.key > '9') {
-        e.preventDefault();
+    // Ensure NIN only accepts numbers and is exactly 11 digits
+    document.getElementById('ssn').addEventListener('input', function (e) {
+      // Remove any non-numeric characters
+      this.value = this.value.replace(/[^0-9]/g, '');
+      
+      // Limit to 11 digits
+      if (this.value.length > 11) {
+        this.value = this.value.slice(0, 11);
       }
     });
 

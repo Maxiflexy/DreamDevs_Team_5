@@ -334,9 +334,10 @@ limitations under the License.
         <div class="brand-section">
           <img src="../static/img/moniebank-logo-blue.jpg" alt="Moniebank Logo" class="brand-logo">
         </div>
-        <h2>👋 Welcome, Your journey to seamless, secure, and smart payments starts here.</h2>
-        <p>Create your free account and start sending, receiving, and managing money seamlessly. </br><strong>No stress.
-            Just smart payments.</strong></p>
+        <h2>👋 Welcome! Your journey to seamless, secure, and smart banking starts here.</h2>
+        <p>Create your free account to send, receive, and manage money seamlessly, now with personalized investment
+          recommendations to help grow your wealth.</br><strong>No stress.
+            Just smart money moves 😉</strong></p>
       </div>
 
       <form id="signup-form" class="needs-validation" novalidate="" method="POST" action="/signup">
@@ -561,7 +562,7 @@ limitations under the License.
     document.getElementById('ssn').addEventListener('input', function (e) {
       // Remove any non-numeric characters
       this.value = this.value.replace(/[^0-9]/g, '');
-      
+
       // Limit to 11 digits
       if (this.value.length > 11) {
         this.value = this.value.slice(0, 11);

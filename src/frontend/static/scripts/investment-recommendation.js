@@ -10,7 +10,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   try {
     const accountBalance = sessionStorage.getItem("balance");
 
-    const response = await fetch("http://35.232.140.138/investment-recommendations", {
+    const response = await fetch("https://ai-integration-service-12904656032.us-central1.run.app/investment-recommendations", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

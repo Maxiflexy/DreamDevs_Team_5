@@ -2,15 +2,14 @@
     <header>
       <nav class="navbar navbar-expand-lg navbar-top">
         <div class="container">
-        {% if cymbal_logo == "true" %}
-          <div class="logo-container">
-            <a href="/"><img id="cymbal-logo" src="static/img/cymbal.svg"></a>
+          <div style="display: flex; align-items: center;">
+            <div class="logo-container">
+              <img id="cymbal-logo" src="../static/img/moniebank_logo.png" alt="MonieBank Logo">
+            </div>
+            <a class="navbar-brand" style="text-decoration: none; color: inherit;">
+              {{ bank_name }}
+            </a>
           </div>
-        {% else %}
-          <a class="navbar-brand">
-            {{ bank_name }}
-          </a>
-        {% endif %}
         {% if name %}
           <button type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler navbar-toggler-right">
             <span class="material-icons">menu</span>

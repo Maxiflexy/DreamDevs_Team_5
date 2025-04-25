@@ -98,4 +98,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
       document.querySelector("#deposit-uuid").value = uuidv4();
   }
   RefreshModals();
+
+  // Set balance to session storage to generate investment report
+  const balanceText = document.getElementById("current-balance").textContent;
+  const balance = Math.floor(parseFloat(balanceText.replace(/[^0-9.]/g, "")));
+  sessionStorage.setItem("balance", balance);
+
+  document.getElementById("deposit-form").addEventListener("submit", function (e) {
+    const balanceText = document.getElementById("current-balance").textContent;
+    const balance = Math.floor(parseFloat(balanceText.replace(/[^0-9.]/g, "")));
+    sessionStorage.setItem("balance", balance);
+  });
 });

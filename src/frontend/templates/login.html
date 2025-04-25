@@ -13,84 +13,553 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 -->
-
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-{% include 'shared/html_head.html' %}
-  </head>
-  <body>
-{% include 'shared/platform_banner.html' %}
-{% include 'shared/navigation.html' %}
-    <!-- Main Content -->
-    <main class="container">
-      <!-- Sign-in card -->
-      <div class="row mt-5 mb-5">
-        <!-- Alert on load -->
-        {% if message != None and message != 'Login Failed' %}
-        <div class="col-md-8 offset-md-2">
-          <div class="alert alert-info alert-dismissible fade show" role="alert">
-            <span class="error-icon mr-2 material-icons">error</span>{{ message }}
-            <button type="button" class="close btn-primary" data-dismiss="alert" aria-label="Close">
-              <span aria-hidden="true">×</span>
-            </button>
-          </div>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0">
+    <title>{{ bank_name }}</title>
+    <link rel="icon" href="static/img/moniebank_logo.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- Font Awesome as fallback -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- {% include 'shared/html_head.html' %} -->
+    <style>
+        :root {
+        --primary-color: #2D7FF9;
+        --text-color: #333;
+        --background-light: #f8f9fa;
+        --font-primary: 'Poppins', -apple-system, BlinkMacSystemFont, sans-serif;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: var(--font-primary);
+     }
+
+        body {
+            font-family: var(--font-primary);
+            margin: 0 !important;
+            padding: 0 !important;
+            height: 100vh;
+            overflow: hidden;
+            font-weight: 400;
+            line-height: 1.5;
+        }
+
+        .login-container {
+            min-height: 100vh;
+            max-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .logo-container {
+            position: absolute;
+            top: 1.5rem;
+            left: 1.5rem;
+            z-index: 10;
+        }
+
+        .logo-container img {
+            height: 150px;
+            width: auto;
+            margin-top: -45px;
+        }
+
+        .desktop-logo {
+            display: block;
+        }
+
+        .mobile-logo {
+            display: none;
+        }
+
+        .login-hero {
+            display: none;
+            background: url('../static/img/moniebank-new-login.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-color: var(--primary-color);
+            width: 100%;
+            color: white;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 992px) {
+            .login-container {
+                flex-direction: row;
+            }
+            .login-hero {
+                display: flex;
+                flex-direction: column;
+                justify-content: end;
+                flex: 1;
+            }
+            .login-form-container {
+                flex: 1;
+            }
+        }
+
+        @media (max-width: 991px) {
+            .login-container {
+                flex-direction: column;
+            }
+            .login-hero {
+                display: none;
+            }
+            .login-form-container {
+                width: 100%;
+                padding: 1rem;
+                min-height: 100vh;
+            }
+            .logo-container {
+                position: relative;
+                top: 0;
+                left: 0;
+                text-align: center;
+                padding: 1rem;
+                background-color: #fff;
+                width: 100%;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+            .logo-container img {
+                height: 40px;
+                margin-top: 0;
+            }
+            .desktop-logo {
+                display: none;
+            }
+            .mobile-logo {
+                display: block;
+            }
+            .login-form-wrapper {
+                max-width: 100%;
+                padding: 1rem;
+            }
+        }
+
+        .login-hero-content {
+            position: relative;
+            z-index: 2;
+            padding: 0.5rem;
+            max-width: 90%;
+        }
+
+        .login-hero h1 {
+            font-size: clamp(1.5rem, 4vw, 2.125rem);
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+        }
+
+        .login-hero p {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            opacity: 0.9;
+        }
+
+        .login-form-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0px 0px 8px rgba(0,0,0,.6);
+            padding: 1.25rem;
+            min-height: 100vh;
+            background-color: #fff;
+        }
+
+        .login-form-wrapper {
+            width: 100%;
+            max-width: 420px;
+            padding: 1rem;
+        }
+
+        .login-form-wrapper h2 {
+            font-size: clamp(1.5rem, 3vw, 1.75rem);
+            font-weight: 600;
+            color: var(--text-color);
+            margin-bottom: 2rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #666;
+            font-size: 0.9rem;
+            font-weight: 500;
+        }
+
+        .input-wrapper {
+            position: relative;
+            width: 100%;
+        }
+
+        .input-wrapper .material-icons,
+        .input-wrapper .fa {
+            position: absolute;
+            left: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-size: 1.25rem;
+            z-index: 2;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.875rem 1rem 0.875rem 2.5rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.2s ease;
+            background-color: #fff;
+        }
+
+        /* Special padding for password input to accommodate both icons */
+        #login-password {
+            padding-right: 2.5rem;
+        }
+
+        .password-toggle {
+            position: absolute;
+            right: 12px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            padding: 0;
+            width: 24px;
+            height: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 2;
+        }
+
+        .password-toggle:hover {
+            color: var(--primary-color);
+        }
+
+        .password-toggle .material-icons,
+        .password-toggle .fa {
+            position: static;
+            transform: none;
+            margin: 0;
+        }
+
+        .check-password {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1.5rem;
+        }
+
+        .checkbox-wrapper {
+            display: flex !important;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .checkbox-wrapper input[type="checkbox"] {
+            width: 16px;
+            height: 16px;
+            border-radius: 4px;
+            border: 1px solid #ddd;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            width: 100%;
+            padding: 0.875rem;
+            background-color: #2D7FF9;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: 500;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .btn-primary:hover {
+            background-color: #1a6eeb;
+        }
+
+        .alert {
+            padding: 0.875rem 1rem;
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .alert-danger {
+            background-color: #fee2e2;
+            color: #dc2626;
+            border: 1px solid #fecaca;
+        }
+
+        .alert-info {
+            background-color: #e1f0ff;
+            color: #2D7FF9;
+            border: 1px solid #cce3ff;
+        }
+
+        .form-footer {
+            margin-top: 1.5rem;
+            text-align: center;
+            color: #666;
+        }
+
+        .form-footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .login-form-container {
+                padding: 0.5rem;
+                align-items: flex-start !important;
+            }
+            .form-group {
+                margin-bottom: 1rem;
+            }
+            .btn-primary {
+                padding: 0.75rem;
+                font-size: 0.95rem;
+            }
+            .form-control {
+                padding: 0.875rem 1rem 0.875rem 2.5rem;
+                font-size: 0.95rem;
+            }
+            .login-form-wrapper h2 {
+                margin-bottom: 1.5rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .login-form-container {
+                padding: 0.75rem;
+            }
+            .form-group label {
+                font-size: 0.85rem;
+            }
+            .form-footer {
+                font-size: 0.9rem;
+            }
+            .logo-container img {
+                height: 35px;
+            }
+        }
+
+        /* Ensure the page content fits within viewport */
+        .login-container {
+            min-height: 100vh;
+            max-height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+
+        @media (min-width: 992px) {
+            .login-container {
+                flex-direction: row;
+            }
+            
+            .login-hero,
+            .login-form-container {
+                flex: 1;
+                overflow-y: auto;
+            }
+        }
+
+        /* Icon styles */
+        .material-icons, .fa {
+            font-size: 1.25rem;
+            vertical-align: middle;
+            margin-right: 0.5rem;
+        }
+
+        /* Fallback for Material Icons */
+        .material-icons:not([class*="loaded"]) {
+            display: none;
+        }
+        .material-icons:not([class*="loaded"]) + .fa {
+            display: inline-block;
+        }
+        .material-icons.loaded + .fa {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <!-- Logo -->
+        <div class="logo-container">
+            <img src="../static/img/monie-bank-logo-white.png" alt="Moniebank Logo" class="desktop-logo">
+            <img src="../static/img/moniebank-logo-blue.jpg" alt="Moniebank Logo" class="mobile-logo">
         </div>
-        {% endif %}
-        <div class="col-lg-6 offset-lg-3">
-          <div class="card">
-            <div class="card-title header-body">
-              <div class="text-center col-10 offset-1">
-                <p class="text-uppercase text-muted secondary-text">Welcome</p>
-                <h2 class="mb-4 header-title">SIGN IN</h2>
-              </div>
+
+        <!-- Left side - Hero section -->
+        <div class="login-hero">
+            <div class="login-hero-content">
+                <h1>Say goodbye to financial stress with the help of Moniebank</h1>
+                <p>Take control of your finances with Moniebank the quickest and simplest way!</p>
             </div>
-            <div class="card-body sign-in">
-              <div class="row align-items-center mt-2">
-                <div class="col-10 offset-1 mb-4">
-                  <div id="alertBanner" class="alert alert-danger mb-4 hidden" role="alert">
-                    <span class="error-icon mr-2 material-icons">error</span>Login failed.
-                  </div>
-                  {% if response_type == "code" %}
-                  <form id="login-form" class="needs-validation" novalidate="" method="POST" action="/login?response_type={{ response_type }}&state={{ state }}&redirect_uri={{ redirect_uri }}&app_name={{ app_name }}">
-                  {% else %}
-                  <form id="login-form" class="needs-validation" novalidate="" method="POST" action="/login">
-                  {% endif %}
-                    <label class="text-uppercase text-muted secondary-text" for="username">Username</label>
-                    <div class="input-group mt-2d mb-5">
-                      <div class="input-group-prepend mr-2">
-                        <span class="input-group-text"><span class="material-icons">account_circle</span></span>
-                      </div>
-                      <input class="form-control" type="text" id="login-username" name="username" autocomplete="off" pattern="([a-zA-Z0-9_]){2,15}" value="{{ default_user }}" required>
-                      <div class="invalid-feedback">
-                        Please enter your username.
-                      </div>
-                    </div>
-                    <label class="text-uppercase text-muted secondary-text" for="password">Password</label>
-                    <div class="input-group mt-2 mb-5">
-                      <div class="input-group-prepend mr-2">
-                        <span class="input-group-text"><span class="material-icons">lock</span></span>
-                      </div>
-                      <input class="form-control" type="password" id="login-password" name="password" value="{{ default_password }}" required>
-                      <div class="invalid-feedback">
-                        Please enter your password.
-                      </div>
-                    </div>
-                    <button class="btn btn-sign-in btn-block mb-4" type="submit">Sign in</button>
-                    <small class="text-uppercase secondary-text text-muted">
-                      Not registered?
-                    </small>
-                    <a href="/signup" class="btn btn-secondary btn-block mt-2 mb-4" id="create-account-btn" type="button">Create an Account</a>
-                  </form>
+        </div>
+
+        <!-- Right side - Login form -->
+        <div class="login-form-container">
+            <div class="login-form-wrapper">
+                <h2>Log In</h2>
+
+                {% if message != None and message != 'Login Failed' %}
+                <div class="alert alert-info">
+                    <span class="material-icons loaded">info</span>
+                    <i class="fa fa-info-circle"></i>
+                    {{ message }}
                 </div>
-              </div>
+                {% endif %}
+
+                {% if message == 'Login Failed' %}
+                <div id="alertBanner" class="alert alert-danger">
+                    <span class="material-icons loaded">error</span>
+                    <i class="fa fa-exclamation-circle"></i>
+                    Login failed. Please check your credentials and try again.
+                </div>
+                {% endif %}
+
+                {% if response_type == "code" %}
+                <form id="login-form" class="needs-validation" novalidate="" method="POST" action="/login?response_type={{ response_type }}&state={{ state }}&redirect_uri={{ redirect_uri }}&app_name={{ app_name }}">
+                {% else %}
+                <form id="login-form" class="needs-validation" novalidate="" method="POST" action="/login">
+                {% endif %}
+                    <div class="form-group">
+                        <label for="login-username">Username</label>
+                        <div class="input-wrapper">
+                            <span class="material-icons loaded">person</span>
+                            <i class="fa fa-user"></i>
+                            <input 
+                                class="form-control" 
+                                type="text" 
+                                id="login-username" 
+                                name="username" 
+                                autocomplete="off" 
+                                pattern="([a-zA-Z0-9_]){2,15}" 
+                                placeholder="Enter your username"
+                                required
+                            >
+                        </div>
+                        <div class="invalid-feedback">Please enter your username.</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="login-password">Password</label>
+                        <div class="input-wrapper">
+                            <span class="material-icons loaded">lock</span>
+                            <i class="fa fa-lock"></i>
+                            <input 
+                                class="form-control" 
+                                type="password" 
+                                id="login-password" 
+                                name="password" 
+                                placeholder="Enter your password"
+                                required
+                            >
+                            <button type="button" class="password-toggle" aria-label="Toggle password visibility">
+                                <span class="material-icons loaded">visibility</span>
+                                <i class="fa fa-eye"></i>
+                            </button>
+                        </div>
+                        <div class="invalid-feedback">Please enter your password.</div>
+                    </div>
+
+                    <div class="form-group check-password">
+                        <label class="checkbox-wrapper">
+                            <input type="checkbox" name="remember"> Remember information
+                        </label>
+                    </div>
+
+                    <button class="btn btn-primary" type="submit">Login</button>
+
+                    <div class="form-footer">
+                        <p>Don't have an account? <a href="/signup">Sign up</a></p>
+                    </div>
+                </form>
             </div>
-          </div>
         </div>
-      </div>
-    </main>
-{% include 'shared/footer.html' %}
-{% include 'shared/scripts.html' %}
-    <!-- Page specific-->
-    <script src="static/scripts/login.js"></script>
-  </body>
+    </div>
+
+    {% include 'shared/scripts.html' %}
+    <script>
+        // Check if Material Icons are loaded
+        document.addEventListener('DOMContentLoaded', function() {
+            const materialIcons = document.querySelectorAll('.material-icons');
+            materialIcons.forEach(icon => {
+                if (window.getComputedStyle(icon).fontFamily.includes('Material Icons')) {
+                    icon.classList.add('loaded');
+                }
+            });
+        });
+
+        // Toggle password visibility
+        document.querySelector('.password-toggle').addEventListener('click', function() {
+            const passwordInput = document.querySelector('#login-password');
+            const materialIcon = this.querySelector('.material-icons');
+            const faIcon = this.querySelector('.fa');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                materialIcon.textContent = 'visibility_off';
+                faIcon.classList.remove('fa-eye');
+                faIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                materialIcon.textContent = 'visibility';
+                faIcon.classList.remove('fa-eye-slash');
+                faIcon.classList.add('fa-eye');
+            }
+        });
+
+        // Form validation
+        (function() {
+            const form = document.querySelector('#login-form');
+            
+            form.addEventListener('submit', function(event) {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            });
+        })();
+    </script>
+</body>
 </html>

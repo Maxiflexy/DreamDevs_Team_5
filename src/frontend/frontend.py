@@ -158,7 +158,7 @@ def create_app():
         return render_template('index.html',
                                account_id=account_id,
                                balance=api_response[BALANCE_NAME],
-                               bank_name=os.getenv('BANK_NAME', 'Bank of Anthos'),
+                               bank_name=os.getenv('BANK_NAME', 'Moniebank'),
                                cluster_name=cluster_name,
                                contacts=api_response[CONTACTS_NAME],
                                cymbal_logo=os.getenv('CYMBAL_LOGO', 'false'),
@@ -261,6 +261,22 @@ def create_app():
                                 msg='Payment failed',
                                 _external=True,
                                 _scheme=app.config['SCHEME']))
+    
+    @app.route('/investment-recommendation', methods=['GET'])
+    def investment_recommendation():
+        """
+        Renders investment recommendation page.
+        Redirects to /login if token is not valid.
+        """
+
+        token = request.cookies.get(app.config['TOKEN_NAME'])
+        if not verify_token(token):
+            app.logger.debug('User isn\'t authenticated. Redirecting to login page.')
+            return redirect(url_for('login_page',
+                                _external=True,
+                                _scheme=app.config['SCHEME']))
+    
+        return render_template('investment.html')
 
     @app.route('/deposit', methods=['POST'])
     def deposit():
@@ -414,7 +430,7 @@ def create_app():
 
         return render_template('login.html',
                                app_name=app_name,
-                               bank_name=os.getenv('BANK_NAME', 'Bank of Anthos'),
+                               bank_name=os.getenv('BANK_NAME', 'Moniebank'),
                                cluster_name=cluster_name,
                                cymbal_logo=os.getenv('CYMBAL_LOGO', 'false'),
                                default_password=os.getenv('DEFAULT_PASSWORD', ''),
@@ -496,7 +512,7 @@ def create_app():
 
             return render_template('consent.html',
                                    app_name=app_name,
-                                   bank_name=os.getenv('BANK_NAME', 'Bank of Anthos'),
+                                   bank_name=os.getenv('BANK_NAME', 'Moniebank'),
                                    cluster_name=cluster_name,
                                    cymbal_logo=os.getenv('CYMBAL_LOGO', 'false'),
                                    platform=platform,
@@ -566,7 +582,7 @@ def create_app():
                                     _external=True,
                                     _scheme=app.config['SCHEME']))
         return render_template('signup.html',
-                               bank_name=os.getenv('BANK_NAME', 'Bank of Anthos'),
+                               bank_name=os.getenv('BANK_NAME', 'Moniebank'),
                                cluster_name=cluster_name,
                                cymbal_logo=os.getenv('CYMBAL_LOGO', 'false'),
                                platform=platform,
@@ -652,8 +668,8 @@ def create_app():
     def format_currency(int_amount):
         """ Format the input currency in a human readable way """
         if int_amount is None:
-            return '$---'
-        amount_str = '${:0,.2f}'.format(abs(Decimal(int_amount)/100))
+            return '₦---'
+        amount_str = '₦{:0,.2f}'.format(abs(Decimal(int_amount)/100))
         if int_amount < 0:
             amount_str = '-' + amount_str
         return amount_str

@@ -43,6 +43,7 @@ Apply kubernetes deployment manifest
 
 ```bash
 kubectl apply -f loadgenerator.yaml
+kubectl apply -f loadgenerator
 kubectl port-forward "svc/loadgenerator" 8080
 ```
 

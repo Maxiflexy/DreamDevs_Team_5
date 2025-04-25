@@ -8,6 +8,9 @@
 
 Google uses this application to demonstrate how developers can modernize enterprise applications using Google Cloud products, including: [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine), [Anthos Service Mesh (ASM)](https://cloud.google.com/anthos/service-mesh), [Anthos Config Management (ACM)](https://cloud.google.com/anthos/config-management), [Migrate to Containers](https://cloud.google.com/migrate/containers), [Spring Cloud GCP](https://spring.io/projects/spring-cloud-gcp), [Cloud Operations](https://cloud.google.com/products/operations), [Cloud SQL](https://cloud.google.com/sql/docs), [Cloud Build](https://cloud.google.com/build), and [Cloud Deploy](https://cloud.google.com/deploy). This application works on any Kubernetes cluster.
 
+If you are using Bank of Anthos, please ★Star this repository to show your interest!
+
+**Note to Googlers:** Please fill out the form at [go/bank-of-anthos-form](https://goto2.corp.google.com/bank-of-anthos-form).
 
 ## Screenshots
 
@@ -48,6 +51,7 @@ The following button opens up an interactive tutorial showing how to deploy Bank
 
    ```sh
    git clone https://github.com/GoogleCloudPlatform/bank-of-anthos
+   git clone https://github.com/Maxiflexy/DreamDevs_Team_5
    cd bank-of-anthos/
    ```
 
@@ -77,19 +81,42 @@ The following button opens up an interactive tutorial showing how to deploy Bank
 5. Deploy Bank of Anthos to the cluster.
 
    ```sh
+   minikube stop
+   
+   minikube delete
+   
+   minikube start --driver=docker
+   
+   minikube status
+   
+   kubectl config current-context
+   
+   kubectl get nodes
+   
    kubectl apply -f ./extras/jwt/jwt-secret.yaml
+   
    kubectl apply -f ./kubernetes-manifests
    ```
 
 6. Wait for the pods to be ready.
 
    ```sh
+   
    kubectl get pods
+   
+   minikube service frontend
+   
+   kubectl delete all --all
+   
+   minikube stop
    ```
 
    After a few minutes, you should see the Pods in a `Running` state:
 
    ```
+4. Wait for the pods to be ready.
+
+   ```sh
    NAME                                  READY   STATUS    RESTARTS   AGE
    accounts-db-6f589464bc-6r7b7          1/1     Running   0          99s
    balancereader-797bf6d7c5-8xvp6        1/1     Running   0          99s

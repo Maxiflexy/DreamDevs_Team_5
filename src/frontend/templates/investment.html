@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Moniebank</title>
+    <link rel="icon" href="static/img/moniebank_logo.png" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            background-color: #f0f6fc;
+            color: #0a1f44;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+            padding: 2rem;
+        }
+
+        .heading {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        h1,
+        h2,
+        h3 {
+            color: #004aad;
+        }
+
+        .card {
+            background: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0, 74, 173, 0.1);
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            border-left: 6px solid #004aad;
+            padding-left: 0.75rem;
+        }
+
+        .item {
+            margin-bottom: 1rem;
+        }
+
+        .tag {
+            display: inline-block;
+            background-color: #e1ecf9;
+            color: #004aad;
+            padding: 0.3rem 0.6rem;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+        }
+
+        ul {
+            padding-left: 1.25rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1rem;
+        }
+
+        .highlight {
+            color: #0077cc;
+            font-weight: 600;
+        }
+
+        .investMentAndRisk {
+            display: flex;
+            flex-wrap: wrap;
+            row-gap: 10px;
+            column-gap: 5px;
+        }
+
+        .section-title.red {
+            color: #b30000;
+            border-left: 6px solid #b30000;
+        }
+
+        .downloadBtn,
+        .backBtn {
+            padding: 0.75rem 1.5rem;
+            background-color: #004aad;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            margin-top: 1rem;
+            font-weight: 600;
+        }
+
+        .downloadBtn:active,
+        .backBtn:active {
+            transform: scale(0.95);
+        }
+
+        @media print {
+            #downloadBtn {
+                display: none;
+            }
+
+            #backBtn {
+                display: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container" id="app">
+        <div class="heading">
+            <h1>Investment Recommendation Report</h1>
+            <div>
+                <button id="downloadBtn" class="downloadBtn">
+                    Download Report
+                </button>
+                <a href="/home">
+                    <button id="backBtn" class="backBtn">
+                        Back
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
+    <!-- Page specific-->
+    <script src="static/scripts/investment-recommendation.js"></script>
+</body>
+
+</html>

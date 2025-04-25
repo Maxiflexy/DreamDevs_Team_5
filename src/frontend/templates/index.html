@@ -64,8 +64,8 @@ limitations under the License.
     </div>
 
     <!-- Balance / Deposit / Send Payment row -->
-    <div class="row col-lg-12 align-items-start">
-      <div class="col-lg-4">
+    <div class="row col-lg-12 align-items-center">
+      <div class="col-12 col-lg-4">
           <div class="card">
             <div class="card-body">
               <div class="row align-items-start">
@@ -82,39 +82,31 @@ limitations under the License.
         </div>
       </div>
 
-      <!-- Buttons -->
-      <div class="col-lg-4 deposit-send-payment-div">
-        <div class="card card-button deposit-send-button" data-toggle="modal" data-target="#depositFunds" data-keyboard="false" data-backdrop="static">
-          <div class="card-body">
-            <div class="row align-items-start">
-              <div class="col">
-                <span class="h5 mb-0" id="depositSpan">
-                  Deposit Funds
-                </span>
-              </div>
-              <div class="button-icon col-auto">
-                <span class="material-icons" id="deposit-icon">get_app</span>
-              </div>
-            </div>
-          </div>
-        </div>
+     <!-- Action Buttons -->
+     <div class="col-12 col-lg-8 my-3 mt-lg-0">
+      <div class="d-flex flex-wrap justify-content-center justify-content-lg-start">
+        <!-- Buttons -->
+        <button type="button" class="btn btn-primary d-flex align-items-center px-4 py-3 mr-2 mb-2"
+          data-toggle="modal" data-target="#depositFunds" data-keyboard="false" data-backdrop="static">
+          Deposit Funds
+          <span class="material-icons ml-2" id="deposit-icon">get_app</span>
+        </button>
+
+        <button type="button" class="btn btn-success d-flex align-items-center px-4 py-3 mr-2 mb-2"
+          data-toggle="modal" data-target="#sendPayment" data-keyboard="false" data-backdrop="static">
+          Send Payment
+          <span class="material-icons ml-2" id="payment-icon">forward</span>
+        </button>
+
+        <a href="/investment-recommendation" class="investmentLink">
+          <button type="button" class="btn btn-warning d-flex align-items-center px-4 py-3 mb-2" data-toggle="modal"
+            data-target="#investmentRecommendation" data-keyboard="false" data-backdrop="static">
+            Investment Recommendation
+            <span class="material-icons ml-2" id="investment-icon">trending_up</span>
+          </button>
+        </a>
       </div>
-      <div class="col-lg-4 deposit-send-payment-div">
-        <div class="card card-button deposit-send-button" data-toggle="modal" data-target="#sendPayment" data-keyboard="false" data-backdrop="static">
-          <div class="card-body">
-            <div class="row align-items-start">
-              <div class="col">
-                <span class="h5 mb-0" id="paymentSpan">
-                  Send Payment
-                </span>
-              </div>
-              <div class="button-icon col-auto">
-                <span class="material-icons" id="payment-icon">forward</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+    </div>
 
       <!-- Transaction History Table -->
       <div class="row col-lg-12 mb-4 align-items-start">
@@ -269,7 +261,7 @@ limitations under the License.
                       <label class="text-uppercase text-muted secondary-text mb-1" for="deposit-amount">Deposit Amount</label>
                       <div class="input-group mb-3">
                         <div class="input-group-prepend mr-2">
-                          <span class="input-group-text"><span class="amount-font material-icons money-icon">attach_money</span></span>
+                          <span class="input-group-text"><span class="amount-font money-icon">₦</span></span>
                         </div>
                         <input class="form-control amount-font" type="number" autocomplete="off" step="0.01" id="deposit-amount" name="amount" placeholder="0.00" min="0.01" max="500000.00" required>
                         <div class="invalid-feedback">
@@ -345,7 +337,7 @@ limitations under the License.
                     <label class="text-uppercase text-muted secondary-text mb-3" for="payment-amount">Transaction Amount</label>
                     <div class="input-group mb-3">
                       <div class="input-group-prepend mr-2">
-                        <span class="input-group-text"><span class="amount-font material-icons">attach_money</span></span>
+                        <span class="input-group-text"><span class="amount-font money-icon">₦</span></span>
                       </div>
                       <input class="form-control amount-font" type="number" autocomplete="off" step="0.01" id="payment-amount" name="amount" placeholder="0.00" min="0.01" max="{{ balance / 100 if balance is not none }}" required>
                       <div class="invalid-feedback">

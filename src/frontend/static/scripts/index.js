@@ -109,4 +109,10 @@ document.addEventListener("DOMContentLoaded", function(event) {
     const balance = Math.floor(parseFloat(balanceText.replace(/[^0-9.]/g, "")));
     sessionStorage.setItem("balance", balance);
   });
+
+  document.getElementById("payment-form").addEventListener("submit", function (e) {
+    const balanceText = document.getElementById("current-balance").textContent;
+    const balance = Math.floor(parseFloat(balanceText.replace(/[^0-9.]/g, "")));
+    sessionStorage.setItem("balance", balance);
+  });
 });

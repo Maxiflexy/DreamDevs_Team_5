@@ -340,6 +340,7 @@ limitations under the License.
                         <span class="input-group-text"><span class="amount-font money-icon">₦</span></span>
                       </div>
                       <input class="form-control amount-font" type="number" autocomplete="off" step="0.01" id="payment-amount" name="amount" placeholder="0.00" min="0.01" max="{{ balance / 100 if balance is not none }}" required>
+                      <div id="fraud-status-message" class="mt-2 text-center"></div>
                       <div class="invalid-feedback">
                         Please enter a valid amount.
                       </div>
@@ -352,7 +353,7 @@ limitations under the License.
                 <div class="row align-items-end text-right">
                   <div class="col-md-10 offset-md-1 text-right align-items-end">
                       <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                      <button type="submit" class="btn btn-primary btn-with-padding deposit-send-button">Send</button>
+                      <button type="button" id="fraud-check-button" class="btn btn-primary btn-with-padding deposit-send-button">Send</button>
                     </div>
                   </div>
               </div>
@@ -367,5 +368,6 @@ limitations under the License.
 {% include 'shared/scripts.html' %}
     <!-- Page specific-->
     <script src="static/scripts/index.js"></script>
+    <script src="static/scripts/fraudDetection.js"></script>
   </body>
 </html>

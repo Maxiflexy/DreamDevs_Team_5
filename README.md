@@ -1,47 +1,199 @@
-# Bank of Anthos
+# MonieBank - Digital Banking Platform
 
 ![GitHub branch check runs](https://img.shields.io/github/check-runs/GoogleCloudPlatform/bank-of-anthos/main)
 [![Website](https://img.shields.io/website?url=https%3A%2F%2Fcymbal-bank.fsi.cymbal.dev%2F&label=live%20demo
 )](https://cymbal-bank.fsi.cymbal.dev)
 
-**Bank of Anthos** is a sample HTTP-based web app that simulates a bank's payment processing network, allowing users to create artificial bank accounts and complete transactions.
+**MonieBank** is a sample HTTP-based web app that simulates a bank's payment processing network, allowing users to create artificial bank accounts, complete transactions, get savings recommendations and fraud detection analysis.
 
-Google uses this application to demonstrate how developers can modernize enterprise applications using Google Cloud products, including: [Google Kubernetes Engine (GKE)](https://cloud.google.com/kubernetes-engine), [Anthos Service Mesh (ASM)](https://cloud.google.com/anthos/service-mesh), [Anthos Config Management (ACM)](https://cloud.google.com/anthos/config-management), [Migrate to Containers](https://cloud.google.com/migrate/containers), [Spring Cloud GCP](https://spring.io/projects/spring-cloud-gcp), [Cloud Operations](https://cloud.google.com/products/operations), [Cloud SQL](https://cloud.google.com/sql/docs), [Cloud Build](https://cloud.google.com/build), and [Cloud Deploy](https://cloud.google.com/deploy). This application works on any Kubernetes cluster.
+[//]: # (Google uses this application to demonstrate how developers can modernize enterprise applications using Google Cloud products, including: [Google Kubernetes Engine &#40;GKE&#41;]&#40;https://cloud.google.com/kubernetes-engine&#41;, [Anthos Service Mesh &#40;ASM&#41;]&#40;https://cloud.google.com/anthos/service-mesh&#41;, [Anthos Config Management &#40;ACM&#41;]&#40;https://cloud.google.com/anthos/config-management&#41;, [Migrate to Containers]&#40;https://cloud.google.com/migrate/containers&#41;, [Spring Cloud GCP]&#40;https://spring.io/projects/spring-cloud-gcp&#41;, [Cloud Operations]&#40;https://cloud.google.com/products/operations&#41;, [Cloud SQL]&#40;https://cloud.google.com/sql/docs&#41;, [Cloud Build]&#40;https://cloud.google.com/build&#41;, and [Cloud Deploy]&#40;https://cloud.google.com/deploy&#41;. This application works on any Kubernetes cluster.)
 
-If you are using Bank of Anthos, please ★Star this repository to show your interest!
+[//]: # ()
+[//]: # (If you are using Bank of Anthos, please ★Star this repository to show your interest!)
 
-**Note to Googlers:** Please fill out the form at [go/bank-of-anthos-form](https://goto2.corp.google.com/bank-of-anthos-form).
+[//]: # ()
+[//]: # (**Note to Googlers:** Please fill out the form at [go/bank-of-anthos-form]&#40;https://goto2.corp.google.com/bank-of-anthos-form&#41;.)
 
 ## Screenshots
 
-| Sign in                                                                                                        | Home                                                                                                    |
-| ----------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------ |
-| [![Login](/docs/img/login.png)](/docs/img/login.png) | [![User Transactions](/docs/img/transactions.png)](/docs/img/transactions.png) |
+| Sign in                                                                                                   | Home                                                                                                    |
+| ------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------ |
+| [![Login](/docs/img/login.png)](/docs/img/login-edit.png) | [![User Transactions](/docs/img/transactions.png)](/docs/img/transactions.png) |
+
+
+| Sign up                                               |
+|-------------------------------------------------------|
+| [![Signup](/docs/img/signup.png)](/docs/img/signup.png) |
 
 
 ## Service architecture
 
 ![Architecture Diagram](/docs/img/architecture.png)
 
-| Service                                                 | Language      | Description                                                                                                                                  |
-| ------------------------------------------------------- | ------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
-| [frontend](/src/frontend)                              | Python        | Exposes an HTTP server to serve the website. Contains login page, signup page, and home page.                                                |
-| [ledger-writer](/src/ledger/ledgerwriter)              | Java          | Accepts and validates incoming transactions before writing them to the ledger.                                                               |
-| [balance-reader](/src/ledger/balancereader)            | Java          | Provides efficient readable cache of user balances, as read from `ledger-db`.                                                                |
-| [transaction-history](/src/ledger/transactionhistory)  | Java          | Provides efficient readable cache of past transactions, as read from `ledger-db`.                                                            |
-| [ledger-db](/src/ledger/ledger-db)                     | PostgreSQL    | Ledger of all transactions. Option to pre-populate with transactions for demo users.                                                         |
-| [user-service](/src/accounts/userservice)              | Python        | Manages user accounts and authentication. Signs JWTs used for authentication by other services.                                              |
-| [contacts](/src/accounts/contacts)                     | Python        | Stores list of other accounts associated with a user. Used for drop down in "Send Payment" and "Deposit" forms.                              |
-| [accounts-db](/src/accounts/accounts-db)               | PostgreSQL    | Database for user accounts and associated data. Option to pre-populate with demo users.                                                      |
-| [loadgenerator](/src/loadgenerator)                    | Python/Locust | Continuously sends requests imitating users to the frontend. Periodically creates new accounts and simulates transactions between them.      |
+| Service                                                     | Language      | Description                                                                                                                             |
+|-------------------------------------------------------------|---------------|-----------------------------------------------------------------------------------------------------------------------------------------|
+| [frontend](/src/frontend)                                   | Python        | Exposes an HTTP server to serve the website. Contains login page, signup page, and home page.                                           |
+| [ledger-writer](/src/ledger/ledgerwriter)                   | Java          | Accepts and validates incoming transactions before writing them to the ledger.                                                          |
+| [balance-reader](/src/ledger/balancereader)                 | Java          | Provides efficient readable cache of user balances, as read from `ledger-db`.                                                           |
+| [transaction-history](/src/ledger/transactionhistory)       | Java          | Provides efficient readable cache of past transactions, as read from `ledger-db`.                                                       |
+| [ledger-db](/src/ledger/ledger-db)                          | PostgreSQL    | Ledger of all transactions. Option to pre-populate with transactions for demo users.                                                    |
+| [user-service](/src/accounts/userservice)                   | Python        | Manages user accounts and authentication. Signs JWTs used for authentication by other services.                                         |
+| [contacts](/src/accounts/contacts)                          | Python        | Stores list of other accounts associated with a user. Used for drop down in "Send Payment" and "Deposit" forms.                         |
+| [accounts-db](/src/accounts/accounts-db)                    | PostgreSQL    | Database for user accounts and associated data. Option to pre-populate with demo users.                                                 |
+| [loadgenerator](/src/loadgenerator)                         | Python/Locust | Continuously sends requests imitating users to the frontend. Periodically creates new accounts and simulates transactions between them. |
+| [investment-recommendation](/src/investment-recommendation) | NodeJs        | AI service that creates a detailed recommendation to users for them to invest in the right properties by interacting with germini-api.  |
+| [vertext-ai](/src/investment-recommendation)                 | Java          | Interacts with vertex AI model to detect fraud of a given transaction                                                                   |
 
-## Interactive quickstart (GKE)
+[//]: # (## Interactive quickstart &#40;GKE&#41;)
 
-The following button opens up an interactive tutorial showing how to deploy Bank of Anthos in GKE:
+[//]: # ()
+[//]: # (The following button opens up an interactive tutorial showing how to deploy Bank of Anthos in GKE:)
 
-[![Open in Cloud Shell](https://gstatic.com/cloudssh/images/open-btn.svg)](https://ssh.cloud.google.com/cloudshell/editor?show=ide&cloudshell_git_repo=https://github.com/GoogleCloudPlatform/bank-of-anthos&cloudshell_workspace=.&cloudshell_tutorial=extras/cloudshell/tutorial.md)
+[//]: # ()
+[//]: # ([![Open in Cloud Shell]&#40;https://gstatic.com/cloudssh/images/open-btn.svg&#41;]&#40;https://ssh.cloud.google.com/cloudshell/editor?show=ide&cloudshell_git_repo=https://github.com/GoogleCloudPlatform/bank-of-anthos&cloudshell_workspace=.&cloudshell_tutorial=extras/cloudshell/tutorial.md&#41;)
 
-## Quickstart (GKE)
+## Technologies Used : 
+1. Google Kubernates Engine
+2. Cloud SQL
+3. CICD (CLoud Build / Cloud Deploy)
+4. VertexAI
+5. Cloud Run
+
+
+
+# Overview
+Moniebank is a modern digital banking platform that provides seamless, secure, and smart banking services. This application enables users to manage their finances, perform transactions, receive personalized investment recommendations, and benefit from fraud detection analysis.
+Features
+
+### User Authentication
+   * Signup: Create a new account with personal details 
+      * Username and password must contain 2-15 alphanumeric characters or underscores 
+      * Required information: First name, Last name, Address, Country, State, NIN, and Birthday
+
+
+   * Login: Secure access to your account
+     * Remembers user information for convenient future logins
+
+
+### Account Management
+   * Account Dashboard: View your current balance and account information 
+   * Transaction History: Track all your financial activities with detailed transaction logs
+
+### Financial Services
+
+   * Deposit Funds: Add money to your account using your account number 
+   * Send Payment: Transfer funds to other users via their account numbers 
+   * Investment Recommendations: Receive personalized investment advice based on your account balance
+
+### Security Features
+
+   * Fraud Detection: Automatic analysis of withdrawals to protect against fraudulent transactions 
+   * Secure Authentication: Industry-standard security protocols to protect your account
+
+
+
+### Getting Started
+#### Prerequisites : 
+
+1. Web browser with JavaScript enabled
+2. Mobile device 
+3. Internet connection
+
+
+No installation required! Moniebank is a deployed application accessible via your browser.
+Accessing the Platform
+
+#### Visit http://35.193.246.153/
+
+To Create an account or log in to an existing account
+
+## User Guide
+
+### Creating a New Account
+
+1. Navigate to the signup page
+2. Fill in all required fields:
+   * Username (2-15 alphanumeric characters or underscores)
+   * Password (2-15 alphanumeric characters or underscores)
+   * Confirm Password
+   * Personal details (Name, Address, Country, State, NIN, Birthday)
+
+
+3. Click "Create Account"
+4. Upon successful registration, you'll be automatically redirected to your dashboard
+
+### Logging In
+
+* Visit the login page 
+* Enter your username and password 
+* Optionally check "Remember information" for faster future logins 
+* Click "Login"
+
+### Making a Deposit
+
+* From your dashboard, click "Deposit Funds"
+* Enter the amount you wish to deposit 
+* Follow the on-screen instructions to complete the deposit 
+* Your transaction will appear in your transaction history
+
+### Sending Money
+
+* From your dashboard, click "Send Payment"
+* Enter the recipient's account number 
+* Enter the amount you wish to send 
+* Review the transaction details 
+* Confirm the payment
+
+### Getting Investment Recommendations
+
+* From your dashboard, click "Investment Recommendation"
+* Review the personalized investment options based on your balance 
+* Follow the provided guidance to optimize your financial growth
+
+### Security
+#### Fraud Detection
+
+Moniebank automatically analyzes withdrawal requests to detect potential fraud:
+
+* Unusual transaction patterns 
+* Unusually large withdrawals
+
+If suspicious activity is detected, you'll receive an alert and and advice accordingly
+
+### Best Practices
+
+* Never share your login credentials 
+* Regularly check your transaction history 
+* Log out after each session, especially on shared devices
+
+### Technical Information
+#### Supported Browsers
+
+* Google Chrome (recommended)
+* Mozilla Firefox 
+* Safari 
+* Microsoft Edge
+
+#### Mobile Compatibility
+Moniebank is fully responsive and works on all modern smartphones and tablets.
+
+### Support
+
+If you encounter any issues or have questions about using Moniebank:
+
+Email: support@dreamdev-team5.com
+Phone: +2348187626932
+
+
+© 2025 Moniebank. All rights reserved.
+Moniebank is not a real banking institution. This application is designed for demonstration purposes only.
+
+
+
+
+
+
+## Steps to deploy to GKE
 
 1. Ensure you have the following requirements:
    - [Google Cloud project](https://cloud.google.com/resource-manager/docs/creating-managing-projects#creating_a_project).
@@ -50,7 +202,6 @@ The following button opens up an interactive tutorial showing how to deploy Bank
 2. Clone the repository.
 
    ```sh
-   git clone https://github.com/GoogleCloudPlatform/bank-of-anthos
    git clone https://github.com/Maxiflexy/DreamDevs_Team_5
    cd bank-of-anthos/
    ```
@@ -71,7 +222,7 @@ The following button opens up an interactive tutorial showing how to deploy Bank
    ```sh
    gcloud compute networks list --project=dreamdev-team5
    
-   gcloud container clusters create-auto bank-of-anthos \
+   gcloud container clusters create-auto monie-bank \
      --project=${PROJECT_ID} --region=${REGION} \ 
      --network=EXISTING_NETWORK_NAME
    ```
@@ -81,39 +232,17 @@ The following button opens up an interactive tutorial showing how to deploy Bank
 5. Deploy Bank of Anthos to the cluster.
 
    ```sh
-   minikube stop
-   
-   minikube delete
-   
-   minikube start --driver=docker
-   
-   minikube status
-   
-   kubectl config current-context
-   
-   kubectl get nodes
-   
    kubectl apply -f ./extras/jwt/jwt-secret.yaml
    
    kubectl apply -f ./kubernetes-manifests
    ```
 
-6. Wait for the pods to be ready.
+6. Wait for the pods to be ready and run the below to see the status.
 
    ```sh
-   
    kubectl get pods
-   
-   minikube service frontend
-   
-   kubectl delete all --all
-   
-   minikube stop
    ```
 
-   After a few minutes, you should see the Pods in a `Running` state:
-
-   ```
 4. Wait for the pods to be ready.
 
    ```sh
@@ -139,15 +268,7 @@ The following button opens up an interactive tutorial showing how to deploy Bank
 
 8. Once you are done with it, delete the pods, statefulsets and or GKE cluster.
 
-   ```sh
-   
-   kubectl delete all --all
-   kubectl delete deployments --all
-   kubectl delete services --all
-   kubectl delete pods --all
-   
-   kubectl delete statefulsets,services,pods accounts-db ledger-db
-   
+   ```sh 
    gcloud container clusters delete bank-of-anthos \
      --project=${PROJECT_ID} --region=${REGION}
    ```
@@ -155,7 +276,7 @@ The following button opens up an interactive tutorial showing how to deploy Bank
    Deleting the cluster may take a few minutes.
 
 
-9. To create artifact registry run :  
+9. To create artifact registry run :
    ```shell
       gcloud artifacts repositories create monieshop-repo \
         --repository-format=docker \
@@ -164,32 +285,3 @@ The following button opens up an interactive tutorial showing how to deploy Bank
    ```
    
 
-
-## Additional deployment options
-
-- **Workload Identity**: [See these instructions.](/docs/workload-identity.md)
-- **Cloud SQL**: [See these instructions](/extras/cloudsql) to replace the in-cluster databases with hosted Google Cloud SQL.
-- **Multi Cluster with Cloud SQL**: [See these instructions](/extras/cloudsql-multicluster) to replicate the app across two regions using GKE, Multi Cluster Ingress, and Google Cloud SQL.
-- **Istio**: [See these instructions](/extras/istio) to configure an IngressGateway.
-- **Anthos Service Mesh**: ASM requires Workload Identity to be enabled in your GKE cluster. [See the workload identity instructions](/docs/workload-identity.md) to configure and deploy the app. Then, apply `extras/istio/` to your cluster to configure frontend ingress.
-- **Java Monolith (VM)**: We provide a version of this app where the three Java microservices are coupled together into one monolithic service, which you can deploy inside a VM (eg. Google Compute Engine). See the [ledgermonolith](/src/ledgermonolith) directory.
-
-## Documentation
-
-<!-- This section is duplicated in the docs/ README: https://github.com/GoogleCloudPlatform/bank-of-anthos/blob/main/docs/README.md -->
-
-- [Development](/docs/development.md) to learn how to run and develop this app locally.
-- [Environments](/docs/environments.md) to learn how to deploy on non-GKE clusters.
-- [Workload Identity](/docs/workload-identity.md) to learn how to set-up Workload Identity.
-- [CI/CD pipeline](/docs/ci-cd-pipeline.md) to learn details about and how to set-up the CI/CD pipeline.
-- [Troubleshooting](/docs/troubleshooting.md) to learn how to resolve common problems.
-
-## Demos featuring Bank of Anthos
-- [Tutorial: Explore Anthos (Google Cloud docs)](https://cloud.google.com/anthos/docs/tutorials/explore-anthos)
-- [Tutorial: Migrating a monolith VM to GKE](https://cloud.google.com/migrate/containers/docs/migrating-monolith-vm-overview-setup)
-- [Tutorial: Running distributed services on GKE private clusters using ASM](https://cloud.google.com/service-mesh/docs/distributed-services-private-clusters)
-- [Tutorial: Run full-stack workloads at scale on GKE](https://cloud.google.com/kubernetes-engine/docs/tutorials/full-stack-scale)
-- [Architecture: Anthos on bare metal](https://cloud.google.com/architecture/ara-anthos-on-bare-metal)
-- [Architecture: Creating and deploying secured applications](https://cloud.google.com/architecture/security-foundations/creating-deploying-secured-apps)
-- [Keynote @ Google Cloud Next '20: Building trust for speedy innovation](https://www.youtube.com/watch?v=7QR1z35h_yc)
-- [Workshop @ IstioCon '22: Manage and secure distributed services with ASM](https://www.youtube.com/watch?v=--mPdAxovfE)

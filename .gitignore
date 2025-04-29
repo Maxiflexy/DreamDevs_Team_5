@@ -211,3 +211,5 @@ venv-*
 
 # go for ci
 go/
+
+src/vertexai/src/main/resources/service-account.json
